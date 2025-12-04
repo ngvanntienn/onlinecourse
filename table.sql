@@ -98,3 +98,4 @@ ALTER TABLE materials
 ADD CONSTRAINT fk_materials_lesson
     FOREIGN KEY (lesson_id) REFERENCES lessons(id)
     ON DELETE CASCADE ON UPDATE CASCADE;
+

@@ -62,8 +62,8 @@
             <div class="divider">
                 <span>Hoặc đăng nhập với</span>
             </div>
-
             <div class="social-login">
+
                 <button class="btn-social">
                     <i class="fa-brands fa-google"></i>
                     Google
@@ -72,8 +72,7 @@
                     <i class="fa-brands fa-facebook-f"></i>
                     Facebook
                 </button>
-            </div>
-            
+            </div>            
             <p class="register-link">Bạn chưa có tài khoản ? <a href="register.php">Tạo tài khoản mới</a></p>
         </div>
     </div>
