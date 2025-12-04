@@ -4,14 +4,14 @@
             <div class="col-md-4 mb-4">
                 <div class="footer-logo-wrapper">
                     <div class="logo-circle"><i class="fas fa-graduation-cap"></i></div>
-                    <span style="font-size: 1.5rem; font-weight: bold;">EasyStudy</span>
+                    <span style="font-size: 2.2rem; font-weight: bold; color: #692e8e;">EasyStudy</span>
                 </div>
-                <p>Nền tảng học tập trực tuyến hàng đầu.</p>
+                <p style = "font-size: 26px;">Nền tảng học tập trực tuyến hàng đầu Việt Nam.</p>
             </div>
 
             <div class="col-md-4 mb-4">
                 <div class="footer-column">
-                    <h3>Về chúng tôi</h3>
+                    <h3>About Us</h3>
                     <ul>
 
                         <li><a href="#">Đội ngũ</a></li>

@@ -1,7 +1,7 @@
 /* login css */
 
 body {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f7f9;
@@ -43,8 +43,8 @@ body {
 .text-overlay {
     position: relative;
     z-index: 2;
-    padding: 0 20px;
-    font-style: italic;
+    padding: 0 10px;
+    color:#f7f2f2;
 }
 
 .register-mode .text-overlay {
@@ -52,10 +52,11 @@ body {
 }
 
 .big-text {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 700;
     margin: 5px 0;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #ffffff88;
 }
 /* vẽ logo study */
 .logo-circle {
@@ -77,7 +78,12 @@ body {
 }
 
 .intro-text {
-    font-size: 22px;
+
+    font-size: 20px;
+    font-weight: 700;
+    margin: 5px 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #f0f0f0df;
 }
 
 .right-panel {
@@ -109,9 +115,9 @@ body {
 
 .tagline {
     text-align: center;
-    color: #777777f1;
+    color: #777777c0;
     margin-bottom: 20px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .auth-switch {
@@ -289,14 +295,22 @@ body {
 }
 
 .register-link {
-    text-align: center;
+    text-align: center; 
     font-size: 14px;
     color: #777;
     margin-top: 10px;
+    text-decoration:none;
 }
+
 
 .register-link a {
     color: #7b3f98;
     text-decoration: none;
     font-weight: 700;
+}
+.form-options a:hover {
+    text-decoration: underline;
+}
+.register-link a:hover {
+    text-decoration: underline;
 }

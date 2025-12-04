@@ -12,9 +12,9 @@
     <div class="container">
         <div class="left-panel">
             <div class="text-overlay">
-                <p class="big-text">Khám Phá Thế Giới</p>
-                <p class="big-text">Kiến Thức Mới</p>
-
+                <p class="big-text">Khám Phá Thế Giới
+                    <br> Kiến Thức Mới
+                </p>
             </div>
         </div>
         <div class="right-panel">
