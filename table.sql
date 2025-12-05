@@ -71,3 +71,9 @@ CREATE TABLE materials (
     uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_material_lesson FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
+
+/* kết nối google và face */
+ALTER TABLE users 
+ADD COLUMN google_id VARCHAR(255) NULL,
+ADD COLUMN facebook_id VARCHAR(255) NULL,
+MODIFY COLUMN password VARCHAR(255) NULL;
