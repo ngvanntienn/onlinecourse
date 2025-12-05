@@ -4,7 +4,6 @@ require_once 'models/Enrollment.php';
 class EnrollmentController {
 
     public function join($courseId) {
-        // Kiểm tra đăng nhập
         if (!isset($_SESSION['user_id'])) {
             header("Location: /onlinecourse/index.php?url=auth/login");
             exit;
