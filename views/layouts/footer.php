@@ -1,3 +1,113 @@
+<style>
+    .site-footer {
+        background-color: #2c282bed;
+        color: #e0e0e0;
+        padding: 20px 0 25px;
+    }
+
+    .footer-logo-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .logo-circle {
+        font-weight: 800;
+        color: #692e8e;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .footer-logo-text { 
+        font-size: 3rem;
+        font-weight: 800;
+        color: white;
+        letter-spacing: 1px;
+    }
+
+    .site-footer p {
+        font-size: 1.1rem;
+        color: #b0b0b0;
+        line-height: 1.6;
+        max-width: 300px;
+    }
+
+    .footer-column h3 {
+        font-size: 1.5rem;
+        margin-bottom: 35px;
+        color: #fff;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        position: relative;
+    }
+
+    /* các thanh cho about course */
+    .footer-column h3::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: #be93fd;
+        border-radius: 2px;
+    }
+
+    .footer-column ul {
+        list-style: none;
+        padding: 0;
+
+    }
+
+    .footer-column ul li {
+        margin-bottom: 18px;
+    }
+
+    .footer-column ul li::before {
+        content: none; 
+    }
+
+    .footer-column ul li a {
+        color: #b0b0b0;
+        text-decoration: none;
+        font-size: 1.4rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+
+    }
+
+    .footer-column ul li a:hover {
+        color: #fff;
+        transform: translateX(8px);
+        text-shadow: 0 0 10px rgba(190, 147, 253, 0.5);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 60px;
+        padding-top: 30px;
+        text-align: center;
+        color: #888;
+        font-size: 1.3rem;
+    }
+
+    .footer-bottom a {
+        color: #aaa;
+        text-decoration: none;
+        margin: 0 20px;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 1.4rem;
+    }
+
+    .footer-bottom a:hover {
+        color: #be93fd;
+    }
+
+</style>
 <footer class="site-footer">
     <div class="container">
         <div class="row">
