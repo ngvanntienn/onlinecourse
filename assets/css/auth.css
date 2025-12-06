@@ -33,12 +33,6 @@ body {
     justify-content: flex-start;
     padding-top: 60px;
 }
-
-/* Đổi ảnh nền riêng cho trang đăng ký*/
-.left-panel.register-mode {
-    background-image: url('https://img.freepik.com/premium-photo/back-school-group-students-eagerly-raising-their-hands-answer-question-classroom_556186-672.jpg');
-}
-
 /* chứa chữ đè lên ảnh */
 .text-overlay {
     position: relative;
