@@ -1,4 +1,3 @@
-
 <?php require_once 'views/layouts/header.php'; ?>
 
 <section class="hero-section">

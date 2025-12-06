@@ -1,11 +1,13 @@
-// validate login
-const togglePassword = document.querySelector('.toggle-password');
-    const passwordInput = document.querySelector('#password');
-
-    togglePassword.addEventListener('click', function () {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-            
-    this.classList.toggle('fa-eye');
-    this.classList.toggle('fa-eye-slash');
+document.getElementById("btnWatchCourse").addEventListener("click", function () {
+    alert("Hiện tại chưa có khóa học");
 });
+document.getElementById("btnjoincourse").addEventListener("click", function () {
+    alert("Đã muộn giờ học");
+});
+document.getElementById("btnwatchAdd").addEventListener("click", function () {
+    alert("Không còn gì để xem");
+});
+document.getElementById("btnwatchAdd2").addEventListener("click", function () {
+    alert("Không còn gì để xem");
+});
+
