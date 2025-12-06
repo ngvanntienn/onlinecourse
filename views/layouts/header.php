@@ -28,9 +28,9 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
         }
 
         .logo-text {
-            font-weight: 800;
+            font-weight: 900;
             color: #692e8e;
-            font-size: 1.8rem; 
+            font-size: 2rem; 
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -47,12 +47,12 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
             border-radius: 8px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
-            font-size: 0.95rem;
+            font-size: 1.3rem;
             white-space: nowrap;
             min-width: 110px; 
             text-align: center;
         }
-
+        
         .nav-item {
             margin: 0 5px;
         }
@@ -80,7 +80,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
             border-radius: 14px;
             padding: 10px 25px;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 1.3rem;
             border: none;
             transition: 0.3s;
             white-space: nowrap;
@@ -93,7 +93,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
             border-radius: 14px;
             padding: 10px 25px;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 1.3rem;
             border: none;
             transition: 0.3s;
             white-space: nowrap;

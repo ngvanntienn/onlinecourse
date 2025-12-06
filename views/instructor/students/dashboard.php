@@ -92,7 +92,9 @@ require_once '../../layouts/header_students.php';
         <div class="mb-5">
             <div class="course-header">
                 <h3 class="course-cat-name">Lập trình Web</h3>
-                <a href="#" class="link-detail">XEM CHI TIẾT <i class="fas fa-arrow-right ml-1"></i></a>
+                <a href="/onlinecourse/views/courses/detail.php?id=lap-trinh-web" class="link-detail">
+                    XEM CHI TIẾT <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
             <img src="/onlinecourse/assets/image/course/web.png" class="course-banner-img">
             <button class="btn-register-pink mt-2">Đăng ký ngay</button>
@@ -101,7 +103,9 @@ require_once '../../layouts/header_students.php';
         <div class="mb-5">
             <div class="course-header">
                 <h3 class="course-cat-name">Photoshop & thiết kế cơ bản</h3>
-                <a href="#" class="link-detail">XEM CHI TIẾT <i class="fas fa-arrow-right ml-1"></i></a>
+                <a href="/onlinecourse/views/courses/detail.php?id=photoshop-co-ban" class="link-detail">
+                    XEM CHI TIẾT <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
             <img src="/onlinecourse/assets/image/course/pts.png" class="course-banner-img">
             <button class="btn-register-pink mt-2">Đăng ký ngay</button>

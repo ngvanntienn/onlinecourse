@@ -1,69 +1,69 @@
 <?php
-class CourseController {
-    // ... các hàm khác (index, search...)
-
-    public function detail() {
-        // 1. Lấy ID khóa học từ URL (ví dụ: index.php?controller=course&action=detail&id=1)
-        $current_id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
-
-        // --- GIẢ LẬP DỮ LIỆU TỪ DATABASE (Thay thế phần này bằng Model của bạn) ---
-        
-        // Danh sách tất cả khóa học
-        $all_courses = [
-            1 => [
-                'id' => 1,
-                'title' => 'Lập trình Web (PHP & MySQL)',
-                'instructor' => 'Trịnh Khánh An',
-                'image' => '/onlinecourse/assets/image/course/web.png',
-                'banner_color' => 'banner-blue', // class CSS
-                'desc' => 'Khóa học bao gồm HTML, CSS, JS và PHP Backend cơ bản.',
-                'price' => 'Miễn phí',
-                'lessons' => 12,
-                'duration' => '30 giờ'
+class Course {
+    public static function getAll() {
+        return [
+            'lap-trinh-web' => [
+                'id' => 'lap-trinh-web',
+                'title' => 'Lập Trình Web',
+                'sub_title' => 'Hiểu về',
+                'teacher_name' => 'Trịnh Thị Vân',
+                'teacher_avatar' => 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg',
+                'teacher_bio' => [
+                    'Thạc sĩ Khoa học máy tính, École Nationale, Supérieure des Mines de Saint-Étienne, Pháp',
+                    '5 năm kinh nghiệm giảng dạy'
+                ],
+                'banner_img' => 'https://vtc.edu.vn/wp-content/uploads/2022/12/thumbnail-lap-trinh-web-la-gi.jpg',
+                'bg_color' => 'linear-gradient(135deg, #0f204b 0%, #2c1a66 100%)',
+                'duration' => '30 giờ',
+                'chapters' => '10 chương',
+                'description' => 'Khóa học Lập Trình Web dành cho người mới bắt đầu...',
+                'learn_goals' => [
+                    'Nền tảng Web: HTML, CSS, JavaScript',
+                    'Tư duy cấu trúc và thiết kế giao diện',
+                    'Cách làm việc với thư viện, tổ chức dự án',
+                    'Thực hành liên tục với bài tập và 01 dự án lớn cuối khóa'
+                ],
+                'outcomes' => [
+                    'Thành thạo HTML5, semantic chuẩn',
+                    'Làm chủ CSS3, Flexbox, Grid',
+                    'Hiểu rõ JavaScript cơ bản',
+                    'Biết chuyển từ thiết kế sang code',
+                    'Tự xây dựng website hoàn chỉnh',
+                    'Tư duy code gọn gàng'
+                ]
             ],
-            2 => [
-                'id' => 2,
-                'title' => 'Photoshop và thiết kế cơ bản',
-                'instructor' => 'Nguyễn Văn B',
-                'image' => '/onlinecourse/assets/image/course/pts.png',
-                'banner_color' => 'banner-dark',
-                'desc' => 'Thành thạo công cụ Photoshop để thiết kế banner, poster.',
-                'price' => '500.000đ',
-                'lessons' => 8,
-                'duration' => '15 giờ'
-            ],
-            3 => [
-                'id' => 3,
-                'title' => 'Tiếng Anh giao tiếp',
-                'instructor' => 'Mai Phương',
-                'image' => '/onlinecourse/assets/image/course/english.png', // Thay ảnh thật
-                'banner_color' => 'banner-blue',
-                'desc' => 'Tự tin giao tiếp tiếng Anh trong môi trường công sở.',
-                'price' => '1.200.000đ',
-                'lessons' => 20,
-                'duration' => '45 giờ'
+            'photoshop-co-ban' => [
+                'id' => 'photoshop-co-ban',
+                'title' => 'Photoshop & Thiết kế',
+                'sub_title' => 'Làm chủ',
+                'teacher_name' => 'Nguyễn Văn Tiến',
+                'teacher_avatar' => 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+                'teacher_bio' => ['Graphic Designer chuyên nghiệp', '8 năm kinh nghiệm'],
+                'banner_img' => 'https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2016/10/photoshop-cc-guide.jpg',
+                'bg_color' => 'linear-gradient(135deg, #1a237e 0%, #2c1a66 100%)',
+                'duration' => '24 giờ',
+                'chapters' => '8 chương',
+                'description' => 'Khóa học Photoshop cơ bản giúp bạn làm chủ công cụ chỉnh sửa ảnh...',
+                'learn_goals' => [
+                    'Hiểu về giao diện Photoshop',
+                    'Kỹ thuật cắt ghép ảnh',
+                    'Lý thuyết màu sắc',
+                    'Thiết kế ấn phẩm'
+                ],
+                'outcomes' => [
+                    'Sử dụng thành thạo Layer, Mask',
+                    'Retouch ảnh chân dung',
+                    'Tự thiết kế banner',
+                    'Tư duy thẩm mỹ tốt'
+                ]
             ]
         ];
+    }
 
-        // 2. Lấy thông tin khóa học hiện tại
-        $course = isset($all_courses[$current_id]) ? $all_courses[$current_id] : null;
-
-        // Nếu không tìm thấy khóa học, chuyển về trang chủ hoặc báo lỗi
-        if (!$course) {
-            header("Location: index.php");
-            exit();
-        }
-
-        // 3. LỌC DANH SÁCH "KHÁM PHÁ" (Loại bỏ khóa học đang xem)
-        $other_courses = [];
-        foreach ($all_courses as $c) {
-            if ($c['id'] != $current_id) {
-                $other_courses[] = $c;
-            }
-        }
-
-        // 4. Gọi View
-        require_once 'views/course/detail.php';
+    // lấy chi tiết 1 khóa học theo ID
+    public static function getById($id) {
+        $courses = self::getAll();
+        return isset($courses[$id]) ? $courses[$id] : $courses['lap-trinh-web'];
     }
 }
 ?>

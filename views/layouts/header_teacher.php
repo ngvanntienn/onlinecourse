@@ -10,8 +10,8 @@ $userAvatar = (isset($_SESSION['avatar']) && !empty($_SESSION['avatar']))
             : $defaultAvatar;
 $avatarDisplay = $userAvatar . '?v=' . time();
 
-/* hiển thị tên mặc định là học viên */
-$displayName = isset($_SESSION['fullname']) ? $_SESSION['fullname'] : 'Học viên';
+/* hiển thị tên mặc định là giảng viên */
+$displayName = isset($_SESSION['fullname']) ? $_SESSION['fullname'] : 'Giảng viên';
 $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
 ?>
 
@@ -26,6 +26,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
     <link rel="stylesheet" href="/onlinecourse/assets/css/style.css">
     <link rel="stylesheet" href="/onlinecourse/assets/css/students.css">
     <link rel="stylesheet" href="/onlinecourse/assets/css/courses.css">
+    <link rel="stylesheet" href="/onlinecourse/assets/css/teacher.css">
     <style>
         .student-navbar {
             background-color: #fff;
@@ -132,6 +133,14 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                 <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
                 class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
                     Khóa học
+                </a>
+                <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
+                class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
+                    Bài Giảng
+                </a>
+                <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
+                class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
+                    Học viên
                 </a>
             </div>
 
