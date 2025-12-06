@@ -31,7 +31,11 @@
                 <button onclick="window.location.href='register.php'" class="switch-btn">Đăng ký</button>
             </div>
 
-            <form class="login-form" action="index.php?controller=auth&action=login" method="POST">
+            <form class="login-form" action="/onlinecourse/controllers/AuthController.php" method="POST">
+                <?php session_start(); ?>
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
+                <input type="hidden" name="action" value="login">
+
                 <div class="form-group">
                     <label for="username">Tên đăng nhập hoặc Email</label>
                     <div class="input-container">

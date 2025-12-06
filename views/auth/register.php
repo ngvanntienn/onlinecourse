@@ -1,3 +1,7 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -30,7 +34,11 @@
                 <button class="switch-btn active">Đăng ký</button>
             </div>
 
-            <form class="register-form" action="index.php?controller=auth&action=register" method="POST">
+            <form class="register-form" action="/onlinecourse/controllers/AuthController.php" method="POST">
+                <input type="hidden" name="action" value="register">
+
+              
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
                 <div class="form-group">
                     <label for="fullname">Họ và tên</label>
                     <div class="input-container">
@@ -67,8 +75,9 @@
                     <label for="role">Đăng ký với vai trò</label>
                     <div class="input-container">
                         <select id="role" name="role">
-                            <option value="0">Học viên</option>
-                            <option value="1">Giảng viên</option>
+                            <option value="hocvien" <?= ($old['role'] ?? '')==='hocvien'?'selected':'' ?>>Học viên</option>
+                            <option value="giangvien" <?= ($old['role'] ?? '')==='giangvien'?'selected':'' ?>>Giảng viên</option>
+
                         </select>
                         <i class="fa-solid fa-chevron-down select-arrow"></i>
                     </div>
