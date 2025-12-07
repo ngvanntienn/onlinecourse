@@ -440,8 +440,9 @@ body {
 }
 .course-banner-img {
     width: 100%;
-    height: auto; 
+    max-height: 300px;
     display: block;
+    object-fit: cover;
     border-radius: 20px;
     position: relative;
     z-index: 2;
@@ -564,4 +565,83 @@ body {
 .star-rating {
     color: #f1c40f;
     font-size: 0.8rem;
+}
+
+/* xử lý pop-up */
+    #loginModal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Nội dung modal */
+.login-modal-content {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+}
+
+/* Tiêu đề */
+.login-modal-content h3 {
+    margin-bottom: 20px;
+    font-size: 2.3rem;
+}
+
+/* Nội dung thông báo */
+.login-modal-content p {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+}
+
+/* Nút */
+.login-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.login-modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.3s;
+}
+
+#closeLoginModal {
+    background: #6c757d;
+}
+
+#closeLoginModal:hover {
+    background: #5a6268;
+}
+
+#goLoginModal {
+    background: #d63384;
+}
+
+#goLoginModal:hover {
+    background: #c12d73;
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+.btn-secondary {
+    border-radius: 20px;
 }
