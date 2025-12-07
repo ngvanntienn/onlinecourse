@@ -77,7 +77,4 @@ p, li, small {
 ul.list-unstyled li span {
     font-size: 1.6rem; 
 }
-.text-purple-light {
-    color: rgb(171, 49, 188); 
-    font-weight: 800;
-}
+
