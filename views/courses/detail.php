@@ -2,7 +2,7 @@
 session_start();
 require_once '../../models/Course.php'; 
 
-/* mặc định lập trình web khi mở mỗi detail */
+/* mặc định lập trình web khi mở detail */
 $course_id = isset($_GET['id']) ? $_GET['id'] : 'lap-trinh-web';
 $course = Course::getById($course_id);
 $courses_data = Course::getAll();
@@ -20,7 +20,10 @@ require_once '../layouts/header_students.php';
         <div class="row align-items-center position-relative">
             <div class="col-md-7 text-white z-index-2">
                 <p class="hero-sub mb-1"><?= $course['sub_title'] ?></p>
-                <h1 class="hero-title-main"><?= $course['title'] ?></h1>
+                <h1 class="hero-title-main scroll-explore" style="cursor:pointer;">
+                <?= $course['title'] ?>
+                </h1>
+
                 <p class="hero-teacher mt-3">Giáo viên: <strong><?= $course['teacher_name'] ?></strong></p>
             </div>
 
@@ -81,7 +84,7 @@ require_once '../layouts/header_students.php';
 
 
             <!-- khóa học khác -->
-            <div class="mt-5 pt-4 border-top">
+            <div id="explore-section" class="mt-5 pt-4 border-top">
                 <h2 class="section-title mb-4">
                     <span class="text-purple-light">Khám phá</span> khóa học khác
                 </h2>
@@ -108,7 +111,7 @@ require_once '../layouts/header_students.php';
         </div>
 
 
-        <!-- slidebar -->
+        <!-- SIDEBAR -->
         <div class="col-lg-4">
             <div class="sidebar-sticky" style="top: 100px;">
 
@@ -148,8 +151,9 @@ require_once '../layouts/header_students.php';
         </div>
 
     </div>
-    <?php require_once './filter.php'; ?>
 </div>
+
+<!-- export PHP data to JS -->
 <script>
     window.otherCourses = <?= json_encode($courses_data) ?>;
     window.currentCourseId = "<?= $course_id ?>";
@@ -157,5 +161,7 @@ require_once '../layouts/header_students.php';
 
 <!-- load JS -->
 <script src="/onlinecourse/assets/js/detail.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <?php require_once '../layouts/footer.php'; ?>
+<?php require_once './filter.php'; ?>
+<?php require_once '../instructor/materials/upload.php'; ?>

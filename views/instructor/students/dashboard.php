@@ -1,12 +1,20 @@
 <?php
-session_start();
+
+require_once './config/Database.php';
+
+require_once './models/Course.php'; 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /onlinecourse/index.php?controller=auth&action=login");
+    exit;
+}
+
 // kiểm tra dữ liệu session 
 $displayName = $_SESSION['fullname'] ?? 'Học viên'; 
 // đường dẫn ảnh avatar mặc định nếu chưa có
 $userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/uploads/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
-
-require_once '../../../config/Database.php';
-
 
 $db = new Database();
 $conn = $db->pdo;
@@ -23,7 +31,7 @@ $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
 $stmt->execute();
 $discoveryCourses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-require_once '../../layouts/header_students.php'; 
+require_once 'views/layouts/header_students.php'; 
 ?>
 
 <section class="hero-section">
@@ -145,11 +153,12 @@ require_once '../../layouts/header_students.php';
                 </a>
             <?php endif; ?>
         </div>
-
+              
     </div> 
 </div> 
-<?php require_once '../../courses/filter.php'; ?>
-
+<?php require_once 'views/layouts/footer.php'; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<?php require_once 'views/courses/filter.php'; ?>
+<?php require_once 'views/instructor/materials/upload.php'; ?>
 
-<?php require_once '../../layouts/footer.php'; ?>
+

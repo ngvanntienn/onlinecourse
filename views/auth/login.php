@@ -56,7 +56,7 @@
             
             <div class="auth-switch">
                 <button class="switch-btn active">Đăng nhập</button>
-                <button onclick="window.location.href='register.php'" class="switch-btn">Đăng ký</button>
+                <button onclick="window.location.href='/onlinecourse/index.php?controller=auth&action=register'" class="switch-btn">Đăng ký</button>
             </div>
 
             <form class="login-form" action="/onlinecourse/index.php?controller=auth&action=login" method="POST">
@@ -81,7 +81,7 @@
                         <input type="checkbox" name="remember">
                         Nhớ mật khẩu
                     </label>
-                    <a href="./forgot.php" class="register-link" style="text-align: right;">Quên mật khẩu ?</a>
+                    <a href="/onlinecourse/index.php?controller=auth&action=forgotPassword" class="register-link"style="text-align: right;">Quên mật khẩu?</a>
                 </div>
 
                 <button type="submit" class="btn-login">Đăng nhập</button>
@@ -116,7 +116,7 @@
                 </button>
             </div>
             
-            <p class="register-link">Bạn chưa có tài khoản ? <a href="register.php">Tạo tài khoản mới</a></p>
+            <p class="register-link">Bạn chưa có tài khoản ? <a href="/onlinecourse/index.php?controller=auth&action=register">Tạo tài khoản mới</a></p>
         </div>
     </div>
   

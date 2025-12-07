@@ -37,17 +37,15 @@ class AuthController {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
                 $_SESSION['fullname'] = $user['fullname'];
+
+
                 if ($user['role'] == 2) {
                     header("Location: index.php?controller=admin&action=dashboard");
-                } elseif ($user['role'] == 1) {
+                } elseif ($user['role'] == 1) { 
                     header("Location: index.php?controller=instructor&action=dashboard");
-                } else {
+                } else { 
                     header("Location: index.php?controller=student&action=dashboard");
                 }
-                exit;
-            } else {
-                $_SESSION['error'] = "Sai tên đăng nhập hoặc mật khẩu!";
-                header("Location: index.php?controller=auth&action=login");
                 exit;
             }
         }
@@ -56,6 +54,24 @@ class AuthController {
 
     public function logout() {
         session_destroy();
+        header("Location: index.php?controller=auth&action=login");
+        exit;
+    }
+    
+    public function forgotPassword() {
+        require_once 'views/auth/forgot.php';
+    }
+    public function process_forgot() {
+        // xử lý gửi mã OTP vào email
+        header("Location: index.php?controller=auth&action=changePassword");
+        exit;
+    }
+    public function changepass() {
+        require_once 'views/auth/changepass.php';
+    }
+
+    public function process_changepass() {
+        $_SESSION['success'] = "Đổi mật khẩu thành công!";
         header("Location: index.php?controller=auth&action=login");
         exit;
     }

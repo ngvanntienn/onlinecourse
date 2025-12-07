@@ -56,7 +56,7 @@
         </div>
         <p class="tagline">Nền tảng học trực tuyến số 1 Việt Nam</p>
         <h2 class="form-heading">Quên mật khẩu ?</h2>
-        <form class="register-form" action="index.php?controller=auth&action=process_forgot" method="POST">
+        <form class="register-form" action="/onlinecourse/index.php?controller=auth&action=process_forgot" method="POST">
             <div class="form-group">
                 <label for="email">Nhập Email để nhận mã</label>
                 <div class="input-container">
@@ -71,7 +71,7 @@
             </div>
             <button type="submit" class="btn-login">Đăng nhập</button>
             <div class="bottom-link">
-                <a href="../../views/auth/changepass.php">Đổi mật khẩu mới ?</a>
+                <a href="/onlinecourse/index.php?controller=auth&action=changepass">Đổi mật khẩu mới ?</a>
             </div>
         </form>
     </div>

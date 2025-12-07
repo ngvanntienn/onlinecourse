@@ -64,7 +64,7 @@
             <p class="tagline">Nền tảng học trực tuyến số 1 Việt Nam</p>
             
             <div class="auth-switch">
-                <button onclick="window.location.href='login.php'" class="switch-btn">Đăng nhập</button>
+                <button onclick="window.location.href='/onlinecourse/index.php?controller=auth&action=login'" class="switch-btn">Đăng nhập</button>
                 <button class="switch-btn active">Đăng ký</button>
             </div>
 
@@ -130,7 +130,7 @@
                 <?php endif; ?>
             </form>
             
-            <p class="register-link">Đã có tài khoản ? <a href="./login.php">Đăng nhập ngay</a></p>
+            <p class="register-link">Đã có tài khoản ? <a href="/onlinecourse/index.php?controller=auth&action=login">Đăng nhập ngay</a></p>
         </div>
     </div>
 </body>

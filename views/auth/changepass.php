@@ -37,7 +37,7 @@
         <p class="tagline">Nền tảng học trực tuyến số 1 Việt Nam</p>
         <h2 class="form-heading">Đổi mật khẩu</h2>
 
-        <form class="register-form" action="index.php?controller=auth&action=process_changepass" method="POST">
+        <form class="register-form" action="/onlinecourse/index.php?controller=auth&action=process_changepass" method="POST">
             
             <div class="form-group">
                 <label for="email">Nhập Email</label>

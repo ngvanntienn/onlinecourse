@@ -1,5 +1,11 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /onlinecourse/index.php?controller=auth&action=login");
+    exit;
+}
 
 // 1. Cấu hình Tab Active (Để Header biết đang ở trang nào)
 $current_page = 'dashboard'; 
@@ -9,7 +15,7 @@ $displayName = $_SESSION['fullname'] ?? 'Giảng viên';
 $userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/uploads/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
 
 // 3. Gọi Header Teacher
-require_once './layouts/header_teacher.php';
+require_once 'views/layouts/header_teacher.php';
 ?>
 </style>
 
@@ -155,4 +161,5 @@ require_once './layouts/header_teacher.php';
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-<?php require_once './layouts/footer.php'; ?>
+<?php require_once 'views/layouts/footer.php'; ?>
+<?php require_once 'instructor/materials/upload.php'; ?>
