@@ -159,7 +159,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                         </div>
                     </li>
 
-                    <li><a class="dropdown-item py-2" href="/onlinecourse/index.php?controller=student&action=dashboard"><i class="fas fa-columns me-2 text-primary"></i>Thông tin tài khoản</a></li>
+                    <li><a class="dropdown-item py-2" href="/onlinecourse//index.php?controller=instructor&action=dashboard"><i class="fas fa-columns me-2 text-primary"></i>Thông tin tài khoản</a></li>
 
                     <li><a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#uploadAvatarModal">
                         <i class="fas fa-camera me-2 text-info"></i>Đổi ảnh đại diện

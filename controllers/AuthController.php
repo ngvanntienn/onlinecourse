@@ -47,6 +47,11 @@ class AuthController {
                     header("Location: index.php?controller=student&action=dashboard");
                 }
                 exit;
+            } 
+            else {
+                $_SESSION['error'] = "Tên đăng nhập hoặc mật khẩu không đúng!";
+                header("Location: index.php?controller=auth&action=login");
+                exit;
             }
         }
         require_once 'views/auth/login.php';
