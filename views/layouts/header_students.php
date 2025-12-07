@@ -23,9 +23,10 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/style.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/students.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/courses.css">
+    <link rel="stylesheet" href="/onlinecourse/assets/css/style.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/onlinecourse/assets/css/students.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/onlinecourse/assets/css/courses.css?v=<?= time() ?>">
+
     <style>
         .student-navbar {
             background-color: #fff;

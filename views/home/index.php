@@ -85,7 +85,7 @@ require_once 'views/layouts/header.php';
     </div>
 </section>
 
-<!-- -->
+
 <section class="about-section">
     <div class="container">
         <div class="text-center mb-5">
@@ -237,7 +237,7 @@ require_once 'views/layouts/header.php';
                     </a>
                 <?php else: ?>
                     <a href="?view=all#discovery-section" class="btn btn-discovery-pink px-4 py-2 fw-bold" style ="font-size:1.6rem;">
-                        Xem tất cả 
+                        Xem thêm 
                     </a>
                 <?php endif; ?>
             </div>
