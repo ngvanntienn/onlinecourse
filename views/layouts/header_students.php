@@ -1,5 +1,5 @@
 <?php
-/* bắt đầu phiên */
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

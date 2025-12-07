@@ -9,6 +9,6 @@ class Lesson {
     }
 
     public function getLessonsByCourse($course_id) {
-        // ...
+   
     }
 }

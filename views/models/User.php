@@ -16,18 +16,18 @@ class User {
         }
 
         // thêm mới
+        $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users (fullname, email, username, password, role) VALUES (:fullname, :email, :username, :password, :role)";
         $stmt = $this->conn->prepare($sql);
         if ($stmt->execute([
             ':fullname' => $fullname,
             ':email'    => $email,
             ':username' => $username,
-            ':password' => $password, 
+            ':password' => $hashed_pass,
             ':role'     => $role
         ])) {
             return true; 
         }
-        return "Lỗi hệ thống, vui lòng thử lại sau.";
     }
 
     public function login($usernameOrEmail, $password) {
@@ -38,11 +38,43 @@ class User {
             ':email'    => $usernameOrEmail
         ]);
         
-        $user = $stmt->fetch();
-        if ($user && $user['password'] === $password) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // dùng password_verify để kiểm tra mật khẩu
+        if ($user && password_verify($password, $user['password'])) {
             return $user;
         }
         return false;
+    }
+
+    /* update ảnh đại diện */
+    public function getUserById($id) {
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function updateAvatar($userId, $avatarFileName)
+    {
+        $stmt = $this->conn->prepare("UPDATE users SET avatar = :avatar WHERE id = :id");
+        return $stmt->execute([
+            ':avatar' => $avatarFileName,
+            ':id' => $userId
+        ]);
+
+    } 
+    public function getUserByEmail($email) {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updatePasswordByEmail($email, $hashedPassword) {
+    $stmt = $this->conn->prepare("UPDATE users SET password = :password WHERE email = :email");
+    return $stmt->execute([
+        ':password' => $hashedPassword,
+        ':email'    => $email
+        ]);
     }
 }
 ?>

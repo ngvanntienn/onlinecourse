@@ -1,5 +1,5 @@
 <?php
-/* bắt đầu phiên */
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -113,7 +113,6 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
     </style>
 </head>
 <body>
-
     <!-- navbar -->
     <nav class="navbar fixed-top student-navbar">
     <div class="container h-100">

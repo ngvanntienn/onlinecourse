@@ -7,17 +7,12 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// 1. Cấu hình Tab Active (Để Header biết đang ở trang nào)
 $current_page = 'dashboard'; 
-
-// 2. Lấy thông tin giảng viên
 $displayName = $_SESSION['fullname'] ?? 'Giảng viên'; 
 $userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/uploads/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
 
-// 3. Gọi Header Teacher
 require_once 'views/layouts/header_teacher.php';
 ?>
-</style>
 
 <!-- form tương tự header students -->
 <section class="hero-section">
@@ -158,8 +153,30 @@ require_once 'views/layouts/header_teacher.php';
     </div>
 
 </div>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <?php if(isset($_SESSION['success'])): ?>
+    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" style = "font-size: 1.5rem;">
+          <?= $_SESSION['success']; unset($_SESSION['success']); ?>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  <?php endif; ?>
 
+  <?php if(isset($_SESSION['error'])): ?>
+    <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" "font-size: 1.5rem;">
+          <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src = "assets/js/students.js"></script>
 <?php require_once 'views/layouts/footer.php'; ?>
-<?php require_once 'instructor/materials/upload.php'; ?>
+<?php require_once 'instructor/materials/upload_teacher.php'; ?>

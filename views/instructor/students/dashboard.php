@@ -2,7 +2,7 @@
 
 require_once './config/Database.php';
 
-require_once './models/Course.php'; 
+require_once 'views/models/Course.php'; 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -156,9 +156,33 @@ require_once 'views/layouts/header_students.php';
               
     </div> 
 </div> 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <?php if(isset($_SESSION['success'])): ?>
+    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" style = "font-size: 1.5rem;">
+          <?= $_SESSION['success']; unset($_SESSION['success']); ?>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  <?php endif; ?>
+
+  <?php if(isset($_SESSION['error'])): ?>
+    <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" "font-size: 1.5rem;">
+          <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
 <?php require_once 'views/layouts/footer.php'; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src = "assets/js/students.js"></script>
 <?php require_once 'views/courses/filter.php'; ?>
-<?php require_once 'views/instructor/materials/upload.php'; ?>
+<?php require_once 'views/instructor/materials/upload_student.php'; ?>
 
 

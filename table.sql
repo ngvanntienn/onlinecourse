@@ -9,6 +9,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     fullname VARCHAR(255) NOT NULL,
     role TINYINT NOT NULL COMMENT '0: học viên, 1: giảng viên, 2: quản trị viên',
+    avatar VARCHAR(255) DEFAULT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 

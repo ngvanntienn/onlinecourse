@@ -1,10 +1,9 @@
 <?php
-// Bắt đầu session để kiểm tra trạng thái đăng nhập
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Logic kiểm tra trang hiện tại để tô màu menu (Active State)
+// logic kiểm tra trang hiện tại để tô màu menu (Active State)
 $current_controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';
 $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
 ?>
@@ -113,50 +112,50 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg fixed-top navbar-custom">
-  <div class="container h-100">
-    <a class="navbar-brand logo-text" href="/onlinecourse/index.php">
-        <i class="fas fa-graduation-cap me-2"></i>EasyStudy
-    </a>
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      
-      <ul class="navbar-nav align-items-center me-4">
-        <li class="nav-item">
-            <a class="nav-box-link <?= ($current_controller == 'home') ? 'active' : '' ?>" href="/onlinecourse/index.php">Trang chủ</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-box-link <?= ($current_controller == 'course') ? 'active' : '' ?>" href="/onlinecourse/index.php?controller=course&action=index">Khóa học</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-box-link" href="#">Tính năng</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-box-link" href="#">Về chúng tôi</a>
-        </li>
-      </ul> 
-      
-      <div class="d-flex gap-2 auth-buttons align-items-center">
-         <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="/onlinecourse/index.php?controller=student&action=dashboard" class="btn-custom-register">
-                <i class="fas fa-columns me-2"></i>Dashboard
-            </a>
-            <a href="/onlinecourse/index.php?controller=auth&action=logout" class="btn btn-outline-danger" style="border-radius: 14px; padding: 8px 12px;" title="Đăng xuất">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
-         <?php else: ?>
-            <a href="/onlinecourse/views/auth/login.php" class="btn-custom-login">Đăng nhập</a>
-            <a href="/onlinecourse/views/auth/register.php" class="btn-custom-register">Đăng ký</a>
-         <?php endif; ?>
-      </div>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-custom">
+    <div class="container h-100">
+        <a class="navbar-brand logo-text" href="/onlinecourse/index.php">
+            <i class="fas fa-graduation-cap me-2"></i>EasyStudy
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        
+        <ul class="navbar-nav align-items-center me-4">
+            <li class="nav-item">
+                <a class="nav-box-link <?= ($current_controller == 'home') ? 'active' : '' ?>" href="/onlinecourse/index.php">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-box-link <?= ($current_controller == 'course') ? 'active' : '' ?>" href="/onlinecourse/index.php?controller=course&action=index">Khóa học</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-box-link" href="#">Tính năng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-box-link" href="#">Về chúng tôi</a>
+            </li>
+        </ul> 
+        
+        <div class="d-flex gap-2 auth-buttons align-items-center">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="/onlinecourse/index.php?controller=student&action=dashboard" class="btn-custom-register">
+                    <i class="fas fa-columns me-2"></i>Dashboard
+                </a>
+                <a href="/onlinecourse/index.php?controller=auth&action=logout" class="btn btn-outline-danger" style="border-radius: 14px; padding: 8px 12px;" title="Đăng xuất">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            <?php else: ?>
+                <a href="/onlinecourse/views/auth/login.php" class="btn-custom-login">Đăng nhập</a>
+                <a href="/onlinecourse/views/auth/register.php" class="btn-custom-register">Đăng ký</a>
+            <?php endif; ?>
+        </div>
 
+        </div>
     </div>
-  </div>
-</nav>
+    </nav>
 
 </body>
 </html>

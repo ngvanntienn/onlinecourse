@@ -20,8 +20,6 @@
             justify-content: center;
             gap: 4px;
         }
-
-
         .alert-success {
             background-color: #d1e7dd;
             color: #0f5132;

@@ -316,3 +316,21 @@ body {
     text-decoration: underline;
 }
 
+/* nút gửi mã */
+.btn-send-code {
+    background-color: #e13952ff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 12px;
+    transition: background-color 0.3s;
+    display: inline-block; 
+    
+}
+
+.btn-send-code:hover {
+    background-color: rgb(167, 40, 59);
+}

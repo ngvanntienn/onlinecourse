@@ -66,3 +66,25 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
+
+// xử lý ký tự password 
+const newPassword = document.getElementById('new_password');
+const lengthReq = document.getElementById('length');
+const upperReq = document.getElementById('uppercase');
+const numberReq = document.getElementById('number');
+const specialReq = document.getElementById('special');
+
+newPassword.addEventListener('input', function() {
+    const val = newPassword.value;
+    lengthReq.classList.toggle('valid', val.length >= 8);
+    lengthReq.classList.toggle('invalid', val.length < 8);
+
+    upperReq.classList.toggle('valid', /[A-Z]/.test(val));
+    upperReq.classList.toggle('invalid', !/[A-Z]/.test(val));
+
+    numberReq.classList.toggle('valid', /[0-9]/.test(val));
+    numberReq.classList.toggle('invalid', !/[0-9]/.test(val));
+
+    specialReq.classList.toggle('valid', /[@#._%$!]/.test(val));
+    specialReq.classList.toggle('invalid', !/[@#._%$!]/.test(val));
+});
