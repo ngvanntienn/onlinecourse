@@ -71,7 +71,8 @@
             <?php endif; ?>
 
             <form class="register-form" action="/onlinecourse/index.php?controller=auth&action=process_changepass" method="POST">
-
+                <input type="hidden" name="email" value="<?= isset($_SESSION['otp_email']) ? $_SESSION['otp_email'] : '' ?>">
+                
                 <div class="form-group">
                     <label for="new_password">Nhập mật khẩu mới</label>
                     <div class="input-container">
@@ -86,19 +87,7 @@
                     </div>
                 </div>
 
-                <!-- checklist mật khẩu -->
-                <div class="password-requirements">
-                    <p>Mật khẩu phải đủ 8 ký tự, bao gồm:</p>
-                    <ul>
-                        <li id="length" class="invalid">Ít nhất 8 ký tự</li>
-                        <li id="uppercase" class="invalid">Ít nhất 1 chữ hoa</li>
-                        <li id="number" class="invalid">Ít nhất 1 số</li>
-                        <li id="special" class="invalid">Ít nhất 1 ký tự đặc biệt (@,#,.,_,%,...)</li>
-                    </ul>
-                </div>
-
                 <button type="submit" class="btn-login">Đổi mật khẩu</button>
-
             </form>
         </div>
     </div>

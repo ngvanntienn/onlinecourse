@@ -28,6 +28,7 @@ class User {
         ])) {
             return true; 
         }
+
     }
 
     public function login($usernameOrEmail, $password) {
@@ -37,14 +38,17 @@ class User {
             ':username' => $usernameOrEmail,
             ':email'    => $usernameOrEmail
         ]);
-        
+
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // dùng password_verify để kiểm tra mật khẩu
-        if ($user && password_verify($password, $user['password'])) {
-            return $user;
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                unset($user['password']);
+                return $user;
+            } else {
+                return false; 
+            }
         }
-        return false;
     }
 
     /* update ảnh đại diện */
@@ -74,7 +78,7 @@ class User {
     return $stmt->execute([
         ':password' => $hashedPassword,
         ':email'    => $email
-        ]);
-    }
+    ]);
+}
 }
 ?>

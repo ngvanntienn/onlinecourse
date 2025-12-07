@@ -74,10 +74,10 @@ class AuthController {
                 $params["secure"],
                 $params["httponly"]
                 );
-        }
-        session_destroy();
-        header("Location: index.php?controller=auth&action=login");
-        exit;
+            }
+            session_destroy();
+            header("Location: index.php?controller=auth&action=login");
+            exit;
     }
 
     
