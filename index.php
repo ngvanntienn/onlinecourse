@@ -2,7 +2,7 @@
 session_start(); 
 
 require_once 'config/Database.php';
-require_once 'views/models/User.php';
+require_once 'models/User.php';
 $controllerName = isset($_GET['controller']) ? ucfirst($_GET['controller']) . 'Controller' : 'HomeController';
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';

@@ -2,7 +2,7 @@
 
 require_once './config/Database.php';
 
-require_once 'views/models/Course.php'; 
+require_once 'models/Course.php'; 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }

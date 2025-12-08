@@ -1,6 +1,6 @@
 <?php
-require_once 'views/models/Course.php';
-require_once 'views/models/Lesson.php';
+require_once 'models/Course.php';
+require_once 'models/Lesson.php';
 
 class CourseController {
 
