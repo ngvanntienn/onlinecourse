@@ -108,7 +108,7 @@
     }
 
 </style>
-<footer class="site-footer">
+<footer class="site-footer" id="about-us">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4">

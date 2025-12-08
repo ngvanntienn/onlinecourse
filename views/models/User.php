@@ -58,6 +58,8 @@ class User {
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    
     public function updateAvatar($userId, $avatarFileName)
     {
         $stmt = $this->conn->prepare("UPDATE users SET avatar = :avatar WHERE id = :id");
@@ -72,7 +74,7 @@ class User {
         $stmt->execute([$email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
+    
     public function updatePasswordByEmail($email, $hashedPassword) {
     $stmt = $this->conn->prepare("UPDATE users SET password = :password WHERE email = :email");
     return $stmt->execute([

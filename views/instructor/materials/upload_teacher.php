@@ -1,6 +1,6 @@
 <div class="modal fade" id="uploadAvatarModal" tabindex="-1" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
-    <form action="/onlinecourse/index.php?controller=instructor&action=upload_avatar" method="POST" enctype="multipart/form-data">
+    <form action="/onlinecourse/index.php?controller=teacher&action=upload_avatar" method="POST" enctype="multipart/form-data">
         <div class="modal-content">
 
             <div class="modal-header border-0">

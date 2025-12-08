@@ -88,3 +88,4 @@ newPassword.addEventListener('input', function() {
     specialReq.classList.toggle('valid', /[@#._%$!]/.test(val));
     specialReq.classList.toggle('invalid', !/[@#._%$!]/.test(val));
 });
+

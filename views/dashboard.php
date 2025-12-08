@@ -9,8 +9,11 @@ if (!isset($_SESSION['user_id'])) {
 
 $current_page = 'dashboard'; 
 $displayName = $_SESSION['fullname'] ?? 'Giảng viên'; 
-$userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/uploads/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
-
+$avatarDisplay = !empty($_SESSION['avatar'])
+    ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] . '?t=' . time()
+    : (!empty($user['avatar'])
+        ? '/onlinecourse/assets/avatars/' . $user['avatar'] . '?t=' . time()
+        : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg');
 require_once 'views/layouts/header_teacher.php';
 ?>
 
@@ -39,7 +42,7 @@ require_once 'views/layouts/header_teacher.php';
     <div class="row dashboard-cards g-4">
         
         <div class="col-md-4">
-            <a href="../views/instructor/course/manage.php" class="manage-card card-orange">
+            <a href="views/instructor/course/manage.php" class="manage-card card-orange">
                 <div class="card-content">
                     <h3 class="card-title">Quản lý Khóa học</h3>
                     <i class="fas fa-book-open card-icon-bg"></i>
@@ -63,7 +66,7 @@ require_once 'views/layouts/header_teacher.php';
         </div>
 
         <div class="col-md-4">
-            <a href="/onlinecourse/index.php?controller=instructor&action=students" class="manage-card card-blue">
+            <a href="/onlinecourse/index.php?controller=teacher&action=students" class="manage-card card-blue">
                 <div class="card-content">
                     <h3 class="card-title">Quản lý Học viên</h3>
                     <i class="fas fa-folder card-icon-bg"></i>

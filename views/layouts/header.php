@@ -135,7 +135,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
                 <a class="nav-box-link" href="#">Tính năng</a>
             </li>
             <li class="nav-item">
-                <a class="nav-box-link" href="#">Về chúng tôi</a>
+                <a class="nav-box-link" href="#about-us">Về chúng tôi</a>
             </li>
         </ul> 
         

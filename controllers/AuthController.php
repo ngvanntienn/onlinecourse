@@ -42,7 +42,7 @@ class AuthController {
                 if ($user['role'] == 2) {
                     header("Location: index.php?controller=admin&action=dashboard");
                 } elseif ($user['role'] == 1) { 
-                    header("Location: index.php?controller=instructor&action=dashboard");
+                    header("Location: index.php?controller=teacher&action=dashboard");
                 } else { 
                     header("Location: index.php?controller=student&action=dashboard");
                 }
@@ -87,44 +87,61 @@ class AuthController {
 
     // Gửi OTP
     public function send_otp() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $email = $_POST['email'];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $email = $_POST['email'];
 
-            /* khóa nút khi ấn 10s */
-            if (isset($_SESSION['otp_time']) && (time() - $_SESSION['otp_time'] < 10)) {
-                $_SESSION['error'] = "Vui lòng đợi 10 giây trước khi gửi lại mã.";
-                header("Location: index.php?controller=auth&action=forgotPassword");
-                exit;
-            }
-
-            // Tạo OTP 6 số random
-            $otp = rand(100000, 999999);
-
-            // Lưu vào Session
-            $_SESSION['otp_code'] = $otp;
-            $_SESSION['otp_email'] = $email;
-            $_SESSION['otp_time'] = time();
-            $_SESSION['show_otp_modal'] = true;
-            $_SESSION['start_timer'] = true;
-
+        // khóa nút 10s
+        if (isset($_SESSION['otp_time']) && (time() - $_SESSION['otp_time'] < 10)) {
+            $_SESSION['error'] = "Vui lòng đợi 10 giây trước khi gửi lại mã.";
             header("Location: index.php?controller=auth&action=forgotPassword");
             exit;
         }
+
+        // kiểm tra email có tồn tại không
+        $userModel = new User();
+        $user = $userModel->getUserByEmail($email);
+
+        if (!$user) {
+            $_SESSION['error'] = "Email không tồn tại trong hệ thống!";
+            header("Location: index.php?controller=auth&action=forgotPassword");
+            exit;
+        }
+
+        // LƯU EMAIL VÀO SESSION để đổi mk sau này
+        $_SESSION['reset_email'] = $email;
+
+        // tạo OTP
+        $otp = rand(100000, 999999);
+
+        $_SESSION['otp_code'] = $otp;
+        $_SESSION['otp_email'] = $email;
+        $_SESSION['otp_time'] = time();
+        $_SESSION['show_otp_modal'] = true;
+        $_SESSION['start_timer'] = true;
+
+        header("Location: index.php?controller=auth&action=forgotPassword");
+        exit;
+        }
     }
+
 
     /* kiểm tra mã otp vừa nhập */
     public function verify_otp_process() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $email_input = $_POST['email'];
             $otp_input = $_POST['otp_code'];
 
-            // chỉ kiểm tra OTP hiện tại
             if (isset($_SESSION['otp_code']) &&
                 $_SESSION['otp_code'] == $otp_input &&
                 $_SESSION['otp_email'] == $email_input) {
-                
+
                 $_SESSION['otp_verified'] = true;
-                unset($_SESSION['otp_code']); // xóa OTP sau khi xác thực thành công
+
+                // Lưu email để đổi mật khẩu
+                $_SESSION['reset_email'] = $email_input;
+
+                unset($_SESSION['otp_code']);
 
                 header("Location: index.php?controller=auth&action=changepass");
                 exit;

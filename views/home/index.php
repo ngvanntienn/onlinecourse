@@ -31,6 +31,7 @@ require_once 'views/layouts/header.php';
                 <div class="mt-4">
                     <a href="/onlinecourse/index.php?controller=auth&action=login" class="btn btn-hero-pink">Đăng nhập</a>
                     <a href="#discovery-section" class="btn btn-hero-watch"><i class="fas fa-play-circle"></i> Xem khóa học</a>
+                 
                 </div>
             </div>
             <div class="col-md-6">

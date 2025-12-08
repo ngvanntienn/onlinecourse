@@ -2,7 +2,7 @@
 require_once './config/Database.php';
 require_once './views/models/User.php';
 
-class StudentController {
+class TeacherController {
 
     private $userModel;
 
@@ -20,7 +20,7 @@ class StudentController {
     }
     
     public function dashboard() {
-        $displayName = $_SESSION['fullname'] ?? 'Học viên';
+        $displayName = $_SESSION['fullname'] ?? 'Giảng viên';
         $userAvatar = !empty($_SESSION['avatar']) 
             ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] 
             : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
@@ -37,9 +37,8 @@ class StudentController {
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
         $discoveryCourses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         require_once 'views/layouts/header_students.php';
-        require_once 'views/instructor/students/dashboard.php';
+        require_once 'views/dashboard.php';
         require_once 'views/layouts/footer.php';
     }
 
@@ -54,7 +53,7 @@ class StudentController {
             $allowedExtensions = ['jpg', 'jpeg', 'png'];
             if (!in_array($fileExtension, $allowedExtensions)) {
                 $_SESSION['error'] = "Chỉ cho phép file JPG, PNG.";
-                header("Location: /onlinecourse/index.php?controller=student&action=dashboard");
+                header("Location: /onlinecourse/index.php?controller=teacher&action=dashboard");
                 exit;
             }
 
@@ -74,7 +73,7 @@ class StudentController {
         } else {
             $_SESSION['error'] = "Vui lòng chọn file ảnh.";
         }
-        header("Location: /onlinecourse/index.php?controller=student&action=dashboard");
+        header("Location: /onlinecourse/index.php?controller=teacher&action=dashboard");
         exit;
     }
 }

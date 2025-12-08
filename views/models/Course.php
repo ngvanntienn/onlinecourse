@@ -3,7 +3,7 @@ class Course {
     public static function getAll() {
         return [
             'lap-trinh-web' => [
-                'id' => 'lap-trinh-web',
+                'id' => '1',
                 'title' => 'Lập trình Web (HTML, CSS, JS)',
                 'sub_title' => 'Học nền tảng Web',
                 'teacher_name' => 'Trịnh Thị Vân',
@@ -30,7 +30,7 @@ class Course {
             ],
 
             'php-mysql-nang-cao' => [
-                'id' => 'php-mysql-nang-cao',
+                'id' => '2',
                 'title' => 'Lập trình PHP & MySQL Nâng cao',
                 'sub_title' => 'Làm chủ Backend',
                 'teacher_name' => 'Nguyễn Văn Tiến',
@@ -54,7 +54,7 @@ class Course {
             ],
 
             'ui-ux-figma' => [
-                'id' => 'ui-ux-figma',
+                'id' => '3',
                 'title' => 'Thiết kế UI/UX với Figma từ A-Z',
                 'sub_title' => 'Làm chủ Figma',
                 'teacher_name' => 'Hoàng Phương Thảo',
@@ -78,7 +78,7 @@ class Course {
             ],
 
             'python-data-science' => [
-                'id' => 'python-data-science',
+                'id' => '4',
                 'title' => 'Python cho Phân tích Dữ liệu (Data Science)',
                 'sub_title' => 'Làm chủ Python',
                 'teacher_name' => 'Trần Thị Minh Thư',
@@ -102,7 +102,7 @@ class Course {
             ],
 
             'photoshop-co-ban' => [
-                'id' => 'photoshop-co-ban',
+                'id' => '5',
                 'title' => 'Thành thạo Photoshop trong 7 ngày',
                 'sub_title' => 'Làm chủ thiết kế',
                 'teacher_name' => 'Chưa đề cập',
@@ -126,7 +126,7 @@ class Course {
             ],
 
             'flutter-mobile' => [
-                'id' => 'flutter-mobile',
+                'id' => '6',
                 'title' => 'Lập trình ứng dụng di động với Flutter',
                 'sub_title' => 'Làm chủ Mobile App',
                 'teacher_name' => 'Chưa đề cập',
@@ -149,7 +149,7 @@ class Course {
                 ]
             ],
             'tieng-anh-giao-tiep' => [
-                'id' => 'tieng-anh-giao-tiep',
+                'id' => '7',
                 'title' => 'Tiếng Anh giao tiếp cho người đi làm',
                 'sub_title' => 'Tự tin nói tiếng Anh',
                 'teacher_name' => 'Chưa đề cập',
@@ -173,7 +173,7 @@ class Course {
             ],
 
             'digital-marketing' => [
-                'id' => 'digital-marketing',
+                'id' => '8',
                 'title' => 'Digital Marketing thực chiến',
                 'sub_title' => 'Làm chủ Marketing',
                 'teacher_name' => 'Chưa đề cập',
@@ -197,7 +197,7 @@ class Course {
             ],
 
             'machine-learning-ai' => [
-                'id' => 'machine-learning-ai',
+                'id' => '9',
                 'title' => 'Machine Learning & AI cơ bản',
                 'sub_title' => 'Học AI từ con số 0',
                 'teacher_name' => 'Chưa đề cập',
@@ -221,7 +221,7 @@ class Course {
             ],
 
             'quan-tri-mang' => [
-                'id' => 'quan-tri-mang',
+                'id' => '10',
                 'title' => 'Quản trị mạng và Bảo mật hệ thống',
                 'sub_title' => 'Làm chủ mạng máy tính',
                 'teacher_name' => 'Chưa đề cập',

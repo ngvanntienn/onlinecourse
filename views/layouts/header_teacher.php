@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $defaultAvatar = "https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg";
 $userAvatar = (isset($_SESSION['avatar']) && !empty($_SESSION['avatar'])) 
-            ? '/onlinecourse/assets/uploads/avatars/' . $_SESSION['avatar'] 
+            ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] 
             : $defaultAvatar;
 $avatarDisplay = $userAvatar . '?v=' . time();
 
@@ -21,7 +21,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/onlinecourse/assets/css/style.css">
     <link rel="stylesheet" href="/onlinecourse/assets/css/students.css">
@@ -145,7 +145,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
 
             <!-- avatar dropdown -->
             <div class="dropdown ms-3">
-                <div class="user-profile-wrapper dropdown-toggle" data-bs-toggle="dropdown">
+                <div class="user-profile-wrapper dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="<?= $avatarDisplay ?>" class="user-avatar-circle">
                     <span class="user-name-text d-none d-sm-block ms-2"><?= $displayName ?></span>
                 </div>
@@ -158,7 +158,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                         </div>
                     </li>
 
-                    <li><a class="dropdown-item py-2" href="/onlinecourse//index.php?controller=instructor&action=dashboard"><i class="fas fa-columns me-2 text-primary"></i>Thông tin tài khoản</a></li>
+                    <li><a class="dropdown-item py-2" href="/onlinecourse//index.php?controller=teacher&action=dashboard"><i class="fas fa-columns me-2 text-primary"></i>Thông tin tài khoản</a></li>
 
                     <li><a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#uploadAvatarModal">
                         <i class="fas fa-camera me-2 text-info"></i>Đổi ảnh đại diện

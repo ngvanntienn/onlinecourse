@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
 // kiểm tra dữ liệu session 
 $displayName = $_SESSION['fullname'] ?? 'Học viên'; 
 // đường dẫn ảnh avatar mặc định nếu chưa có
-$userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/uploads/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
+$userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
 
 $db = new Database();
 $conn = $db->pdo;
@@ -143,17 +143,18 @@ require_once 'views/layouts/header_students.php';
         <?php endif; ?>
 
         <div class="text-center mt-4">
-            <?php if (isset($_GET['view']) && $_GET['view'] == 'all'): ?>
-                <a href="dashboard.php#discovery-section" class="fw-bold mb-0 text-decoration-none text-dark"style = "font-size: 1.8rem;">
+            <?php if ($isShowAll): ?>
+                <a href="/onlinecourse/index.php?controller=student&action=dashboard#discovery-section" 
+                class="fw-bold mb-0 text-decoration-none text-dark" style="font-size: 1.8rem;">
                     Thu gọn <br> <i class="fas fa-arrow-up"></i>
                 </a>
             <?php else: ?>
-                <a href="?view=all#discovery-section" id="btnwatchAdd2" class="fw-bold mb-0 text-decoration-none text-dark"style = "font-size: 1.8rem;">
+                <a href="/onlinecourse/index.php?controller=student&action=dashboard&view=all#discovery-section" 
+                class="fw-bold mb-0 text-decoration-none text-dark" style="font-size: 1.8rem;">
                     Xem thêm <br> <i class="fas fa-arrow-down"></i>
                 </a>
             <?php endif; ?>
-        </div>
-              
+        </div>        
     </div> 
 </div> 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -184,5 +185,3 @@ require_once 'views/layouts/header_students.php';
 <script src = "assets/js/students.js"></script>
 <?php require_once 'views/courses/filter.php'; ?>
 <?php require_once 'views/instructor/materials/upload_student.php'; ?>
-
-

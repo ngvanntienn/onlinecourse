@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $defaultAvatar = "https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg";
 $userAvatar = (isset($_SESSION['avatar']) && !empty($_SESSION['avatar'])) 
-            ? '/onlinecourse/assets/uploads/avatars/' . $_SESSION['avatar'] 
+            ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] 
             : $defaultAvatar;
 $avatarDisplay = $userAvatar . '?v=' . time();
 
@@ -129,7 +129,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                     Trang chủ
                 </a>
 
-                <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
+                <a href="#discovery-section"
                 class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
                     Khóa học
                 </a>
