@@ -27,6 +27,12 @@
         }
 
 
+        .alert-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
+
         .alert-danger {
             background-color: #f8d7da;
             color: #842029;
@@ -102,8 +108,8 @@
             <div class="divider">
                 <span>Hoặc đăng nhập với</span>
             </div>
-
             <div class="social-login">
+
                 <button class="btn-social">
                     <i class="fa-brands fa-google"></i>
                     Google
@@ -113,7 +119,6 @@
                     Facebook
                 </button>
             </div>
-            
             <p class="register-link">Bạn chưa có tài khoản ? <a href="/onlinecourse/index.php?controller=auth&action=register">Tạo tài khoản mới</a></p>
         </div>
     </div>

@@ -282,7 +282,6 @@ require_once 'views/layouts/header.php';
         </div>
     </div>
 </section>
-
 <!-- pop-up thông báo -->
 <div id="loginModal">
     <div class="login-modal-content">
@@ -296,4 +295,26 @@ require_once 'views/layouts/header.php';
     </div>
 </div>
 <script src="/onlinecourse/assets/js/script.js?v=<?= time() ?>"></script>
+<?php require_once 'views/layouts/footer.php'; ?>
+=======
+<script src = "/onlinecourse/assets/js/script.js"></script>
+<script>
+// Khi người dùng click bất kỳ vị trí trên trang chủ (trừ nút 'Đăng ký'),
+// chuyển tới trang đăng nhập để hiển thị form đăng nhập.
+(function(){
+    document.addEventListener('click', function(e){
+        var target = e.target;
+        // Nếu click vào hoặc trong 1 phần tử dẫn tới trang đăng ký, cho phép hành động mặc định
+        if (target.closest && target.closest('a[href*="register.php"], .btn-custom-register, .btn-register, .switch-btn')) {
+            return;
+        }
+        // Nếu phần tử hoặc cha có thuộc tính data-no-login="true", bỏ qua
+        if (target.closest && target.closest('[data-no-login="true"]')) return;
+
+        // Ngăn hành động mặc định và chuyển sang trang login
+        e.preventDefault();
+        window.location.href = '/onlinecourse/views/auth/login.php';
+    }, false);
+})();
+</script>
 <?php require_once 'views/layouts/footer.php'; ?>

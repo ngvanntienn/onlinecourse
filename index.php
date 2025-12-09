@@ -22,5 +22,3 @@ if (file_exists($controllerPath)) {
 } else {
     die("Lỗi: Controller '$controllerName' không tìm thấy.");
 }
-
-?>
