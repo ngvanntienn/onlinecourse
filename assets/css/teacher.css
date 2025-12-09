@@ -1,0 +1,179 @@
+.hero-image-wrapper {
+    margin-bottom: -9px; 
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+}
+
+/* card */
+.dashboard-cards {
+    margin-top: 30px;
+}
+.manage-card {
+    border-radius: 12px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-decoration: none;
+    display: block;
+    height: 210px; 
+}
+.manage-card:hover {
+    transform: translateY(-5px);
+    color: white;
+}
+
+.card-content {
+    padding: 25px;
+    height: 140px;
+    position: relative;
+}
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    z-index: 2;
+    position: relative;
+}
+
+/* hiệu ứng khi hove */
+.card-icon-bg {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 4rem;
+    opacity: 0.8; 
+}
+
+/* thanh xem chi tiết */
+.card-footer-link {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    transition: background 0.3s;
+}
+.card-content i { 
+    margin-left: 8px; 
+    transition: margin 0.3s; 
+}
+.manage-card:hover .card-footer-link i 
+{ 
+    margin-left: 15px; 
+}
+
+/* tạo màu sắc như form đã thiết kế */
+/* course */
+.card-orange { 
+    background-color: #FFAB6F; 
+}
+.card-orange .card-footer-link { 
+    background-color: #E69A64; 
+}
+
+/* bài giảng */
+.card-green { 
+    background-color: #73D13D; 
+}
+.card-green .card-footer-link { 
+    background-color: #5FB335; 
+}
+
+/* còn lại */
+.card-blue { 
+    background-color: #7367F0; 
+}
+.card-blue .card-footer-link { 
+    background-color: #5E50EE; 
+}
+
+/* evaluate */
+.reviews-container {
+    background-color: #E6F7FF; /* Màu xanh nhạt nền */
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+.section-header-text {
+    font-weight: 800;
+    font-size: 1.7rem;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.review-item {
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 15px;
+}
+.reviewer-avatar {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+.reviewer-name { 
+    font-weight: 700; 
+    color: #333; 
+    font-size: 1.5rem; 
+}
+
+.review-time { 
+    font-size: 1.3rem; 
+    color: #888; 
+    float: right; 
+}
+
+/* rating box */
+.rating-summary-box {
+    background: white;
+    border: 2px solid #2D9CDB;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rating-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #555;
+}
+.top-rating-text {
+    color: #888; 
+    font-weight: 600; 
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+/* thanh rate */
+.rating-progress-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+    color: #666;
+}
+.progress-bar-bg {
+    flex-grow: 1;
+    height: 9px;
+    background-color: #eee;
+    border-radius: 3px;
+    margin-left: 10px;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    background-color: #4DB6AC; 
+    border-radius: 3px;
+}
