@@ -1,8 +1,7 @@
 <?php
+require_once __DIR__ . '/../../../config/Database.php';
+require_once __DIR__ . '/../../../models/Course.php';
 
-require_once '../../../config/Database.php';
-
-require_once '../../../models/Course.php'; 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -15,13 +14,13 @@ if (!isset($_SESSION['user_id'])) {
 $displayName = $_SESSION['fullname'] ?? 'Học viên'; 
 // đường dẫn ảnh avatar mặc định nếu chưa có
 $userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
-
-require_once '../course/create.php';
-require_once '../course/edit.php';
-require_once '../../layouts/header_teacher.php'; 
+$courseModel = new Course();
+$courses = $courseModel->getAll();
+$current_action = 'course_manage';
+require_once __DIR__ . '../create.php';
+require_once __DIR__ . '../edit.php';
+require_once __DIR__ . '/../../layouts/header_teacher.php'; 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -274,9 +273,6 @@ require_once '../../layouts/header_teacher.php';
     </style>
 </head>
 <body>
-
-    
-
     <div class="container" style="margin-top: 100px; padding-bottom: 50px;">
         
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -289,10 +285,10 @@ require_once '../../layouts/header_teacher.php';
     <input type="text" placeholder="Tìm kiếm khóa học...">
     
     <i class="fas fa-filter" 
-       data-bs-toggle="modal" 
-       data-bs-target="#filterModal" 
-       style="cursor: pointer;" 
-       title="Mở bộ lọc">
+    data-bs-toggle="modal" 
+    data-bs-target="#filterModal" 
+    style="cursor: pointer;" 
+    title="Mở bộ lọc">
     </i>
 </div>
             
@@ -319,7 +315,7 @@ require_once '../../layouts/header_teacher.php';
                 </thead>
                 <tbody>
                     <?php if (!empty($courses)): ?>
-    <?php foreach ($courses as $course): ?>
+                        <?php foreach ($courses as $course): ?>
 
                         <tr>
                             <td class="col-id"><?= $course['id'] ?></td>
@@ -367,93 +363,6 @@ require_once '../../layouts/header_teacher.php';
         </div>
     </div>
 
-    <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Form Thêm khóa học</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                    <form action="/onlinecourse/index.php?controller=course&action=create" method="POST"><div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Tên khóa học</label>
-                            <input type="text" name="title" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Mô tả</label>
-                            <textarea name="description" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Học phí</label>
-                            <input type="number" name="price" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Thời lượng</label>
-                            <input type="text" name="duration" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Trình độ</label>
-                            <input type="text" name="level" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Ảnh minh họa</label>
-                            <input type="text" name="image" class="form-control">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">Hủy bỏ</button>
-                        <button type="submit" class="btn-modal-add">Thêm</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Form Cập nhật khóa học</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/onlinecourse/index.php?controller=course&action=update" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" name="id" id="edit-id">
-
-                        <div class="mb-3">
-                            <label class="form-label">Tên khóa học</label>
-                            <input type="text" name="title" id="edit-title" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Mô tả</label>
-                            <textarea name="description" id="edit-desc" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Học phí</label>
-                            <input type="number" name="price" id="edit-price" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Thời lượng</label>
-                            <input type="text" name="duration" id="edit-duration" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Trình độ</label>
-                            <input type="text" name="level" id="edit-level" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Ảnh minh họa</label>
-                            <input type="text" name="image" id="edit-image" class="form-control">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn-modal-save">
-                            <i class="fas fa-save"></i> Lưu dữ liệu
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="filterModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

@@ -12,8 +12,9 @@ $avatarDisplay = $userAvatar . '?v=' . time();
 
 /* hiển thị tên mặc định là giảng viên */
 $displayName = isset($_SESSION['fullname']) ? $_SESSION['fullname'] : 'Giảng viên';
-$current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
-?>
+if (!isset($current_action)) {
+    $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
+}?>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -129,9 +130,9 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                     Trang chủ
                 </a>
 
-                <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
-                class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
-                    Khóa học
+                <a href="/onlinecourse/views/instructor/course/manage.php" 
+                    class="nav-box-link <?= ($current_action == 'course_manage' || $current_action == 'index') ? 'active' : '' ?>">
+                        Khóa học
                 </a>
                 <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
                 class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
