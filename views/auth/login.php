@@ -20,6 +20,11 @@
             justify-content: center;
             gap: 4px;
         }
+        .alert-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
 
 
         .alert-success {
@@ -27,7 +32,6 @@
             color: #0f5132;
             border: 1px solid #badbcc;
         }
-
 
         .alert-danger {
             background-color: #f8d7da;
@@ -81,7 +85,7 @@
                         <input type="checkbox" name="remember">
                         Nhớ mật khẩu
                     </label>
-                    <a href="/onlinecourse/index.php?controller=auth&action=forgot" class="register-link" style="text-align: right;">Quên mật khẩu ?</a>
+                    <a href="/onlinecourse/index.php?controller=auth&action=forgotPassword" class="register-link"style="text-align: right;">Quên mật khẩu?</a>
                 </div>
 
                 <button type="submit" class="btn-login">Đăng nhập</button>
