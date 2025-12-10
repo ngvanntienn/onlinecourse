@@ -9,7 +9,6 @@ class CourseController {
 
         require_once 'views/layouts/header.php';
         require_once 'views/instructor/course/manage.php';
-        require_once 'views/layouts/footer.php';
     }
 
     public function create() {
