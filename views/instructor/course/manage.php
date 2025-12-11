@@ -42,7 +42,7 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
         body {
             background-color: var(--primary-bg);
         }
-        
+
         .toolbar-container {
             display: flex;
             justify-content: space-between;
@@ -242,13 +242,10 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             <h4 class="fw-bold m-0" style="font-size: 2rem;">Danh sách khóa học</h4>
         </div>
         <div class="toolbar-container">
-        
-
             <button class="btn-add-course" data-bs-toggle="modal" data-bs-target="#addModal">
                 <i class="fas fa-plus"></i> Tạo khóa học mới
             </button>
         </div>
-
         <div class="table-container">
             <table class="table table-hover">
                 <thead>
@@ -417,5 +414,5 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
 </script>
 </body>
 </html>
-<?php require_once '../users/manage.php'; 
+<?php require_once __DIR__ . '/../../users/manage.php';
 require_once __DIR__ . '/../materials/upload_teacher.php'; ?>
