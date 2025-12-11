@@ -14,5 +14,38 @@ class Lesson {
         $stmt->execute(['course_id' => $courseId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+     // Lấy 1 bài học theo ID
+    public function getById($lessonId) {
+        $sql = "SELECT * FROM lessons WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['id' => $lessonId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function create($courseId, $title, $content, $videoUrl, $order = 0) {
+        $sql = "INSERT INTO lessons (course_id, title, content, video_url, `order`) 
+                VALUES (:course_id, :title, :content, :video_url, :order)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'course_id' => $courseId,
+            'title' => $title,
+            'content' => $content,
+            'video_url' => $videoUrl,
+            'order' => $order
+        ]);
+        return $this->conn->lastInsertId();
+    }
+ public function update($lessonId, $title, $content, $videoUrl, $order = 0) {
+        $sql = "UPDATE lessons SET title=:title, content=:content, video_url=:video_url, `order`=:order
+                WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            'title' => $title,
+            'content' => $content,
+            'video_url' => $videoUrl,
+            'order' => $order,
+            'id' => $lessonId
+        ]);
+    }
+
 }
 ?>
