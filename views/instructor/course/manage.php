@@ -10,7 +10,6 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// kiểm tra dữ liệu session 
 $displayName = $_SESSION['fullname'] ?? 'Giảng viên'; 
 // đường dẫn ảnh avatar mặc định nếu chưa có
 $userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
@@ -43,6 +42,7 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
         body {
             background-color: var(--primary-bg);
         }
+        
         .toolbar-container {
             display: flex;
             justify-content: space-between;
@@ -50,7 +50,6 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             margin-bottom: 20px;
             font-size: 1.2rem;
         }
-        /* thiết lập ô search */
         .search-box {
             position: relative;
             background: white;
@@ -98,7 +97,6 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             transform: translateY(-1px);
         }
 
-        /* table Style */
         .table-container {
             background: white;
             border-radius: 12px;
@@ -165,8 +163,6 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
         .action-btn:hover { 
             background: #f0f0f0; 
         }
-
-        /* --- modal --- */
         .modal-content {
             border-radius: 15px;
             border: none;
@@ -210,8 +206,6 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             box-shadow: none;
             border-color: #aaa;
         }
-        
-        /* các nút trong modal */
         .btn-modal-cancel {
             background-color: white;
             color: #333;
@@ -221,7 +215,6 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             font-weight: 600;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        /* nút thêm */
         .btn-modal-add {
             background-color: #1ed760; 
             color: white;
@@ -231,7 +224,6 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             font-weight: 600;
             margin-left: 10px;
         }
-        /* nút lưu */
         .btn-modal-save {
             background-color: #4da6ff; 
             border: none;
@@ -250,16 +242,7 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             <h4 class="fw-bold m-0" style="font-size: 2rem;">Danh sách khóa học</h4>
         </div>
         <div class="toolbar-container">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Tìm kiếm khóa học...">
-                <i class="fas fa-filter" 
-                   data-bs-toggle="modal" 
-                   data-bs-target="#filterModal" 
-                   style="cursor: pointer;" 
-                   title="Mở bộ lọc">
-                </i>
-            </div>
+        
 
             <button class="btn-add-course" data-bs-toggle="modal" data-bs-target="#addModal">
                 <i class="fas fa-plus"></i> Tạo khóa học mới
@@ -434,4 +417,5 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
 </script>
 </body>
 </html>
-<?php require_once __DIR__ . '/../materials/upload_teacher.php'; ?>
+<?php require_once '../users/manage.php'; 
+require_once __DIR__ . '/../materials/upload_teacher.php'; ?>
