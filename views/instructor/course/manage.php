@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../config/Database.php';
 require_once __DIR__ . '/../../../models/Course.php';
-
+require_once __DIR__ . '/../../../models/User.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // kiểm tra dữ liệu session 
-$displayName = $_SESSION['fullname'] ?? 'Học viên'; 
+$displayName = $_SESSION['fullname'] ?? 'Giảng viên'; 
 // đường dẫn ảnh avatar mặc định nếu chưa có
 $userAvatar  = !empty($_SESSION['avatar']) ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
 $courseModel = new Course();
@@ -20,6 +20,7 @@ $current_action = 'course_manage';
 require_once __DIR__ . '../create.php';
 require_once __DIR__ . '../edit.php';
 require_once __DIR__ . '/../../layouts/header_teacher.php'; 
+
 ?>
 
 <!DOCTYPE html>
@@ -30,75 +31,26 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
     <title>Quản lý khóa học - EasyStudy</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     
     <style>
         :root {
-            --primary-bg: #f3effb; /* Màu nền tím nhạt chủ đạo */
+            --primary-bg: #f3effb;
             --header-bg: #fff;
             --purple-text: #5e2d87;
         }
 
         body {
             background-color: var(--primary-bg);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        /* --- Header/Navbar Style --- */
-        .navbar {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 15px 0;
-        }
-        .brand-logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--purple-text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        .brand-logo i { margin-right: 10px; font-size: 1.8rem; }
-        .nav-link-custom {
-            font-weight: 600;
-            color: #333;
-            margin: 0 15px;
-            text-decoration: none;
-            padding-bottom: 5px;
-        }
-        .nav-link-custom.active {
-            border-bottom: 3px solid #007bff; /* Xanh dương giống ảnh mục Bài giảng */
-            color: #007bff;
-        }
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        /* --- Main Content Style --- */
-        .page-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        /* Toolbar (Search + Button) */
         .toolbar-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            font-size: 1.2rem;
         }
-
+        /* thiết lập ô search */
         .search-box {
             position: relative;
             background: white;
@@ -116,13 +68,17 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             padding-left: 10px;
             color: #666;
         }
-        .search-box i.fa-search { color: #aaa; }
+        .search-box i.fa-search { 
+            color: #aaa; 
+        }
         .search-box i.fa-filter { 
             color: #666; 
             margin-left: 10px; 
             cursor: pointer;
+
         }
 
+        /* add course */
         .btn-add-course {
             background-color: white;
             border: none;
@@ -136,43 +92,61 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             gap: 8px;
             transition: all 0.2s;
         }
+
         .btn-add-course:hover {
             background-color: #fafafa;
             transform: translateY(-1px);
         }
 
-        /* Table Style */
+        /* table Style */
         .table-container {
             background: white;
             border-radius: 12px;
             padding: 0;
-            overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            overflow-x: auto; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
         }
+                
         .table {
             margin-bottom: 0;
+            width: 100%;
         }
         .table thead th {
-            background-color: white;
-            color: #888;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border-bottom: 1px solid #eee;
-            padding: 20px 15px;
-            text-align: center;
+            background-color: #f8f9fa;
+            color: #444;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-bottom: 2px solid #dee2e6;
+            padding: 20px 15px; 
+            text-align: left;
+            white-space: nowrap; 
             vertical-align: middle;
+            
         }
-        .table tbody td {
+       .table tbody td {
             vertical-align: middle;
-            padding: 15px;
-            font-size: 0.9rem;
+            padding: 20px 15px; 
+            font-size: 1rem;
             color: #333;
-            border-bottom: 1px solid #f5f5f5;
+            border-bottom: 1px solid #f0f0f0;
+            
         }
-        /* Căn chỉnh cột cụ thể */
-        .col-id { width: 50px; text-align: center; }
-        .col-img img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
-        .col-action { text-align: center; width: 100px; }
+
+        .col-id { 
+            width: 60px; 
+            font-weight: bold;
+            color: #888;
+        }
+
+        .col-img img { 
+            width: 60px; 
+            height: 50px; 
+            object-fit: cover; 
+            border-radius: 4px; }
+        .col-action { 
+            text-align: center; 
+            width: 100px; 
+        }
         
         .action-btn {
             border: 1px solid #ddd;
@@ -186,20 +160,24 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             color: #555;
             margin: 0 2px;
             transition: all 0.2s;
+            font-size: 1.1rem;
         }
-        .action-btn:hover { background: #f0f0f0; }
+        .action-btn:hover { 
+            background: #f0f0f0; 
+        }
 
-        /* --- Modal Custom Style (Purple Theme) --- */
+        /* --- modal --- */
         .modal-content {
             border-radius: 15px;
             border: none;
             overflow: hidden;
         }
         .modal-header {
-            background-color: #f3effb; /* Tím nhạt */
+            background-color: #f3effb; 
             border-bottom: none;
             padding: 20px 30px;
         }
+
         .modal-title {
             font-weight: 700;
             font-size: 1.5rem;
@@ -216,12 +194,11 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             justify-content: flex-end;
         }
 
-        /* Form Controls trong Modal */
         .form-label {
             font-weight: 500;
             margin-bottom: 5px;
             color: #333;
-            font-size: 0.95rem;
+            font-size: 1.2rem;
         }
         .form-control {
             border-radius: 6px;
@@ -234,7 +211,7 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             border-color: #aaa;
         }
         
-        /* Các nút trong Modal */
+        /* các nút trong modal */
         .btn-modal-cancel {
             background-color: white;
             color: #333;
@@ -244,8 +221,9 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             font-weight: 600;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
+        /* nút thêm */
         .btn-modal-add {
-            background-color: #1ed760; /* Màu xanh lá nút Thêm */
+            background-color: #1ed760; 
             color: white;
             border: none;
             padding: 10px 30px;
@@ -253,9 +231,9 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             font-weight: 600;
             margin-left: 10px;
         }
+        /* nút lưu */
         .btn-modal-save {
-            background-color: #4da6ff; /* Màu xanh dương nút Lưu */
-            color: white;
+            background-color: #4da6ff; 
             border: none;
             padding: 10px 30px;
             border-radius: 6px;
@@ -264,34 +242,25 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
             align-items: center;
             gap: 5px;
         }
-        
-        /* Chỉnh độ cao textarea */
-        textarea.form-control {
-            resize: none;
-            height: 80px;
-        }
     </style>
 </head>
 <body>
     <div class="container" style="margin-top: 100px; padding-bottom: 50px;">
-        
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="fw-bold m-0">Danh sách khóa học</h4>
+            <h4 class="fw-bold m-0" style="font-size: 2rem;">Danh sách khóa học</h4>
         </div>
-
         <div class="toolbar-container">
             <div class="search-box">
-    <i class="fas fa-search"></i>
-    <input type="text" placeholder="Tìm kiếm khóa học...">
-    
-    <i class="fas fa-filter" 
-    data-bs-toggle="modal" 
-    data-bs-target="#filterModal" 
-    style="cursor: pointer;" 
-    title="Mở bộ lọc">
-    </i>
-</div>
-            
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Tìm kiếm khóa học...">
+                <i class="fas fa-filter" 
+                   data-bs-toggle="modal" 
+                   data-bs-target="#filterModal" 
+                   style="cursor: pointer;" 
+                   title="Mở bộ lọc">
+                </i>
+            </div>
+
             <button class="btn-add-course" data-bs-toggle="modal" data-bs-target="#addModal">
                 <i class="fas fa-plus"></i> Tạo khóa học mới
             </button>
@@ -309,21 +278,18 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
                         <th>Trình độ</th>
                         <th>Ảnh</th>
                         <th>Ngày tạo</th>
-                        <th>Ngày cập nhật</th>
-                        <th></th>
-                    </tr>
+                        <th>Hành động</th> </tr>
                 </thead>
                 <tbody>
                     <?php if (!empty($courses)): ?>
                         <?php foreach ($courses as $course): ?>
-
                         <tr>
-                            <td class="col-id"><?= $course['id'] ?></td>
-                            <td class="fw-bold"><?= htmlspecialchars($course['title']) ?></td>
-                            <td><?= htmlspecialchars(mb_strimwidth($course['description'], 0, 50, "...")) ?></td>
-                            <td><?= number_format($course['price'], 0, ',', '.') ?></td>
-                            <td><?= $course['duration_weeks'] ?> tuần</td>
-                            <td><?= $course['level'] ?></td>
+                            <td class="col-id"style="font-size: 1.1rem;"><?= $course['id'] ?></td>
+                            <td class="fw-bold"style="font-size: 1.1rem;"><?= htmlspecialchars($course['title']) ?></td>
+                            <td style="font-size: 1.1rem;"><?= htmlspecialchars(mb_strimwidth($course['description'], 0, 50, "...")) ?></td>
+                            <td style="font-size: 1.1rem;"><?= number_format($course['price'], 0, ',', '.') ?> đ</td>
+                            <td style="font-size: 1.1rem;"><?= $course['duration_weeks'] ?> tuần</td>
+                            <td style="font-size: 1.1rem;"><?= $course['level'] ?></td>
                             <td class="col-img">
                                 <?php if($course['image']): ?>
                                     <img src="<?= $course['image'] ?>" alt="Course Img">
@@ -331,14 +297,8 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
                                     <img src="https://via.placeholder.com/60x40" alt="No Img">
                                 <?php endif; ?>
                             </td>
-                            <td><?= date('d/m/Y', strtotime($course['created_at'])) ?></td>
-                            <td>
-                                <a href="/onlinecourse/index.php?controller=course&action=delete&id=<?= $course['id'] ?>" 
-                                    class="action-btn" onclick="return confirm('Bạn có chắc muốn xóa?')">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-
-
+                            <td style="font-size: 1.1rem;"><?= date('d/m/Y', strtotime($course['created_at'])) ?></td>
+                            <td class="col-action">
                                 <button class="action-btn btn-edit" 
                                     data-bs-toggle="modal" 
                                     data-bs-target="#editModal"
@@ -352,6 +312,12 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
                                 >
                                     <i class="fas fa-edit"></i>
                                 </button>
+
+                                <a href="/onlinecourse/index.php?controller=course&action=delete&id=<?= $course['id'] ?>" 
+                                   class="action-btn" 
+                                   onclick="return confirm('Bạn có chắc muốn xóa?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -434,32 +400,38 @@ require_once __DIR__ . '/../../layouts/header_teacher.php';
         </div>
     </div>
 </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Xử lý sự kiện click vào nút Sửa để đổ dữ liệu vào Modal
-        const editModal = document.getElementById('editModal');
-        editModal.addEventListener('show.bs.modal', function (event) {
-            // Nút kích hoạt modal
-            const button = event.relatedTarget;
-            
-            // Lấy dữ liệu từ data attributes
-            const id = button.getAttribute('data-id');
-            const title = button.getAttribute('data-title');
-            const desc = button.getAttribute('data-desc');
-            const price = button.getAttribute('data-price');
-            const duration = button.getAttribute('data-duration');
-            const level = button.getAttribute('data-level');
-            const image = button.getAttribute('data-image');
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.btn-edit').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // hiển thị dữ liệu
+                const id = btn.dataset.id;
+                const title = btn.dataset.title;
+                const desc = btn.dataset.desc;
+                const price = btn.dataset.price;
+                const duration = btn.dataset.duration;
+                const level = btn.dataset.level;
+                const image = btn.dataset.image;
 
-            // Đổ vào input trong modal
-            document.getElementById('edit-id').value = id;
-            document.getElementById('edit-title').value = title;
-            document.getElementById('edit-desc').value = desc;
-            document.getElementById('edit-price').value = price;
-            document.getElementById('edit-duration').value = duration;
-            document.getElementById('edit-level').value = level;
-            document.getElementById('edit-image').value = image;
+                // gán dữ liệu
+                document.getElementById('edit-id').value = id;
+                document.getElementById('edit-title').value = title;
+                document.getElementById('edit-desc').value = desc;
+                document.getElementById('edit-price').value = price;
+                
+                if(document.getElementById('edit-duration')) 
+                    document.getElementById('edit-duration').value = duration;
+                
+                if(document.getElementById('edit-level')) 
+                    document.getElementById('edit-level').value = level;
+                
+                if(document.getElementById('edit-image')) 
+                    document.getElementById('edit-image').value = image;
+            });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
+<?php require_once __DIR__ . '/../materials/upload_teacher.php'; ?>
