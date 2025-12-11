@@ -1,48 +1,79 @@
 <?php
-class User {
-    private $conn;
+class AuthController {
+   
+    public function register() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $fullname = $_POST['fullname'];
+            $email    = $_POST['email'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $role     = $_POST['role'];
 
-    public function __construct() {
-        $db = new Database();
-        $this->conn = $db->pdo;
+            $userModel = new User();
+            $result = $userModel->register($fullname, $email, $username, $password, $role);
+
+            if ($result === true) {
+                $_SESSION['success'] = "Đăng ký thành công! Hãy đăng nhập ngay.";
+                header("Location: index.php?controller=auth&action=login"); 
+                exit;
+            } else {
+                $_SESSION['error'] = $result; 
+                header("Location: index.php?controller=auth&action=register");
+                exit;
+            }
+        }
+        require_once 'views/auth/register.php';
     }
-    public function register($fullname, $email, $username, $password, $role) {
-        $sql_check = "SELECT id FROM users WHERE username = :username OR email = :email";
-        $stmt_check = $this->conn->prepare($sql_check);
-        $stmt_check->execute([':username' => $username, ':email' => $email]);
-        
-        if ($stmt_check->rowCount() > 0) {
-            return "Tên đăng nhập hoặc Email này đã tồn tại."; 
-        }
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
 
-        // thêm mới
-        $sql = "INSERT INTO users (fullname, email, username, password, role) VALUES (:fullname, :email, :username, :password, :role)";
-        $stmt = $this->conn->prepare($sql);
-        if ($stmt->execute([
-            ':fullname' => $fullname,
-            ':email'    => $email,
-            ':username' => $username,
-            ':password' => $password, 
-            ':role'     => $role
-        ])) {
-            return true; 
+            $userModel = new User();
+            $user = $userModel->login($username, $password);
+
+            if ($user) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+                $_SESSION['fullname'] = $user['fullname'];
+
+
+                if ($user['role'] == 2) {
+                    header("Location: index.php?controller=admin&action=dashboard");
+                } elseif ($user['role'] == 1) { 
+                    header("Location: index.php?controller=instructor&action=dashboard");
+                } else { 
+                    header("Location: index.php?controller=student&action=dashboard");
+                }
+                exit;
+            }
         }
-        return "Lỗi hệ thống, vui lòng thử lại sau.";
+        require_once 'views/auth/login.php';
     }
 
-    public function login($usernameOrEmail, $password) {
-        $sql = "SELECT * FROM users WHERE username = :username OR email = :email";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':username' => $usernameOrEmail,
-            ':email'    => $usernameOrEmail
-        ]);
-        
-        $user = $stmt->fetch();
-        if ($user && $user['password'] === $password) {
-            return $user;
-        }
-        return false;
+    public function logout() {
+        session_destroy();
+        header("Location: index.php?controller=auth&action=login");
+        exit;
+    }
+    
+    public function forgotPassword() {
+        require_once 'views/auth/forgot.php';
+    }
+    public function process_forgot() {
+        // xử lý gửi mã OTP vào email
+        header("Location: index.php?controller=auth&action=changePassword");
+        exit;
+    }
+    public function changepass() {
+        require_once 'views/auth/changepass.php';
+    }
+
+    public function process_changepass() {
+        $_SESSION['success'] = "Đổi mật khẩu thành công!";
+        header("Location: index.php?controller=auth&action=login");
+        exit;
     }
 }
 ?>

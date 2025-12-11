@@ -81,7 +81,7 @@
                         <input type="checkbox" name="remember">
                         Nhớ mật khẩu
                     </label>
-                    <a href="/onlinecourse/index.php?controller=auth&action=forgot" class="register-link" style="text-align: right;">Quên mật khẩu ?</a>
+                    <a href="/onlinecourse/index.php?controller=auth&action=forgotPassword" class="register-link"style="text-align: right;">Quên mật khẩu?</a>
                 </div>
 
                 <button type="submit" class="btn-login">Đăng nhập</button>

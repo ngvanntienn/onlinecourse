@@ -1,0 +1,255 @@
+<?php
+class Course {
+    public static function getAll() {
+        return [
+            'lap-trinh-web' => [
+                'id' => 'lap-trinh-web',
+                'title' => 'Lập trình Web (HTML, CSS, JS)',
+                'sub_title' => 'Học nền tảng Web',
+                'teacher_name' => 'Trịnh Thị Vân',
+                'teacher_avatar' => 'https://media.vov.vn/sites/default/files/styles/large/public/2023-09/4_47.jpg',
+                'teacher_bio' => [
+                    'Giảng viên CNTT',
+                    'Chuyên về Web Development'
+                ],
+                'banner_img' => 'https://blog.xprofile.vn/wp-content/uploads/2023/03/Lo-trinh-web-developer-tu-co-ban-den-nang-cao-la-gi-e1679546066297.jpeg',
+                'bg_color' => 'linear-gradient(135deg, #0f204b 0%, #2c1a66 100%)',
+                'duration' => '8 tuần',
+                'chapters' => '12 chương',
+                'description' => 'Khóa học dành cho người mới bắt đầu muốn tự tay xây dựng giao diện website hoàn chỉnh từ con số 0.',
+                'learn_goals' => [
+                    'Hiểu HTML, CSS, JavaScript',
+                    'Xây dựng layout chuẩn responsive',
+                    'Hiểu tư duy UI cơ bản',
+                ],
+                'outcomes' => [
+                    'Tự tạo website cơ bản',
+                    'Biết triển khai giao diện chuyên nghiệp',
+                    'Nắm vững nền tảng Web'
+                ]
+            ],
+
+            'php-mysql-nang-cao' => [
+                'id' => 'php-mysql-nang-cao',
+                'title' => 'Lập trình PHP & MySQL Nâng cao',
+                'sub_title' => 'Làm chủ Backend',
+                'teacher_name' => 'Nguyễn Văn Tiến',
+                'teacher_avatar' => 'https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://cdn-media.sforum.vn/storage/app/media/thanhhuyen/%E1%BA%A3nh%20s%C6%A1n%20t%C3%B9ng%20mtp/1/anh-son-tung-mtp-1.jpg',
+                'teacher_bio' => ['Chuyên gia Backend', '10 năm kinh nghiệm'],
+                'banner_img' => 'https://key.com.vn/upload/article/contents/lap-trinh-web-voi-php-mysql-1.png',
+                'bg_color' => 'linear-gradient(135deg, #1a237e 0%, #2c1a66 100%)',
+                'duration' => '12 tuần',
+                'chapters' => '14 chương',
+                'description' => 'Làm chủ Backend với mô hình MVC, OOP và bảo mật ứng dụng web thực tế.',
+                'learn_goals' => [
+                    'Hiểu OOP trong PHP',
+                    'Xây dựng hệ thống MVC',
+                    'Thiết kế CSDL MySQL chuẩn'
+                ],
+                'outcomes' => [
+                    'Tự xây dựng Website có Backend',
+                    'Biết bảo mật cơ bản',
+                    'Làm chủ MySQL nâng cao'
+                ]
+            ],
+
+            'ui-ux-figma' => [
+                'id' => 'ui-ux-figma',
+                'title' => 'Thiết kế UI/UX với Figma từ A-Z',
+                'sub_title' => 'Làm chủ Figma',
+                'teacher_name' => 'Hoàng Phương Thảo',
+                'teacher_avatar' => 'https://cdn.tienphong.vn/images/5e2829db240faf9d8eff1c5640e7a6743316af63a1c947ae548e0e11672c2eebf0ca7ea95604f1801b5908427e7f00fe/l21.jpg',
+                'teacher_bio' => ['UI/UX Designer', '5 năm kinh nghiệm'],
+                'banner_img' => 'https://img.freepik.com/free-vector/gradient-style-ui-ux-background_52683-69621.jpg',
+                'bg_color' => 'linear-gradient(135deg, #673ab7 0%, #512da8 100%)',
+                'duration' => '6 tuần',
+                'chapters' => '8 chương',
+                'description' => 'Học tư duy thiết kế và sử dụng thành thạo Figma để tạo ra các giao diện ứng dụng đẹp mắt.',
+                'learn_goals' => [
+                    'Tư duy UI/UX',
+                    'Hiểu layout, typography',
+                    'Thiết kế prototype'
+                ],
+                'outcomes' => [
+                    'Biết dùng Figma chuyên nghiệp',
+                    'Thiết kế giao diện App/Web',
+                    'Tạo Portfolio cá nhân'
+                ]
+            ],
+
+            'python-data-science' => [
+                'id' => 'python-data-science',
+                'title' => 'Python cho Phân tích Dữ liệu (Data Science)',
+                'sub_title' => 'Làm chủ Python',
+                'teacher_name' => 'Trần Thị Minh Thư',
+                'teacher_avatar' => 'https://media.vov.vn/sites/default/files/styles/large/public/2021-01/bts_jungkook_pics.jpg',
+                'teacher_bio' => ['Data Analyst', '5 năm kinh nghiệm'],
+                'banner_img' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Python_logo_and_wordmark.svg/2560px-Python_logo_and_wordmark.svg.png',
+                'bg_color' => 'linear-gradient(135deg, #1565c0 0%, #283593 100%)',
+                'duration' => '10 tuần',
+                'chapters' => '12 chương',
+                'description' => 'Khám phá sức mạnh của dữ liệu với Pandas, NumPy và Matplotlib.',
+                'learn_goals' => [
+                    'Xử lý dữ liệu bằng Pandas',
+                    'Tối ưu code Python',
+                    'Vẽ biểu đồ với Matplotlib'
+                ],
+                'outcomes' => [
+                    'Phân tích dữ liệu thực tế',
+                    'Hiểu Data Pipeline',
+                    'Tạo báo cáo trực quan'
+                ]
+            ],
+
+            'photoshop-co-ban' => [
+                'id' => 'photoshop-co-ban',
+                'title' => 'Thành thạo Photoshop trong 7 ngày',
+                'sub_title' => 'Làm chủ thiết kế',
+                'teacher_name' => 'Chưa đề cập',
+                'teacher_avatar' => 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg',
+                'teacher_bio' => ['Graphic Designer', '8 năm kinh nghiệm'],
+                'banner_img' => 'https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2016/10/photoshop-cc-guide.jpg',
+                'bg_color' => 'linear-gradient(135deg, #1a237e 0%, #0d47a1 100%)',
+                'duration' => '1 tuần',
+                'chapters' => '7 chương',
+                'description' => 'Khóa học cấp tốc giúp bạn chỉnh sửa ảnh, blend màu và thiết kế banner chuyên nghiệp.',
+                'learn_goals' => [
+                    'Hiểu công cụ Photoshop',
+                    'Cắt ghép ảnh chuyên nghiệp',
+                    'Blend màu chuẩn'
+                ],
+                'outcomes' => [
+                    'Thiết kế banner',
+                    'Retouch ảnh',
+                    'Làm chủ Photoshop cơ bản'
+                ]
+            ],
+
+            'flutter-mobile' => [
+                'id' => 'flutter-mobile',
+                'title' => 'Lập trình ứng dụng di động với Flutter',
+                'sub_title' => 'Làm chủ Mobile App',
+                'teacher_name' => 'Chưa đề cập',
+                'teacher_avatar' => 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg',
+                'teacher_bio' => ['Mobile Developer', '6 năm kinh nghiệm'],
+                'banner_img' => 'https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png',
+                'bg_color' => 'linear-gradient(135deg, #1a237e 0%, #0d47a1 100%)',
+                'duration' => '16 tuần',
+                'chapters' => '18 chương',
+                'description' => 'Xây dựng ứng dụng đa nền tảng cho iOS & Android chỉ với 1 codebase.',
+                'learn_goals' => [
+                    'Hiểu cấu trúc Flutter',
+                    'Quản lý state (Provider/BLoC)',
+                    'Kết nối API Restful'
+                ],
+                'outcomes' => [
+                    'Tạo ứng dụng hoàn chỉnh',
+                    'Triển khai lên CH Play/AppStore',
+                    'Làm chủ Flutter'
+                ]
+            ],
+            'tieng-anh-giao-tiep' => [
+                'id' => 'tieng-anh-giao-tiep',
+                'title' => 'Tiếng Anh giao tiếp cho người đi làm',
+                'sub_title' => 'Tự tin nói tiếng Anh',
+                'teacher_name' => 'Chưa đề cập',
+                'teacher_avatar' => 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg',
+                'teacher_bio' => ['Giảng viên tiếng Anh doanh nghiệp', '6 năm kinh nghiệm'],
+                'banner_img' => 'https://aten.edu.vn/wp-content/uploads/2022/05/hinh-anh-tieng-anh-giao-tiep-la-gi-so-1.jpg',
+                'bg_color' => 'linear-gradient(135deg, #0d47a1 0%, #1a237e 100%)',
+                'duration' => '8 tuần',
+                'chapters' => '12 chương',
+                'description' => 'Tự tin giao tiếp trong môi trường công sở, viết email và thuyết trình bằng tiếng Anh.',
+                'learn_goals' => [
+                    'Giao tiếp công sở',
+                    'Thuyết trình tiếng Anh',
+                    'Viết email chuẩn'
+                ],
+                'outcomes' => [
+                    'Tự tin nói chuyện',
+                    'Giao tiếp trôi chảy',
+                    'Ứng dụng vào công việc'
+                ]
+            ],
+
+            'digital-marketing' => [
+                'id' => 'digital-marketing',
+                'title' => 'Digital Marketing thực chiến',
+                'sub_title' => 'Làm chủ Marketing',
+                'teacher_name' => 'Chưa đề cập',
+                'teacher_avatar' => 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg',
+                'teacher_bio' => ['Marketer', '7 năm kinh nghiệm'],
+                'banner_img' => 'https://mir-s3-cdn-cf.behance.net/project_modules/hd/1a3c0c18546659.562cb438b98a8.png',
+                'bg_color' => 'linear-gradient(135deg, #4a148c 0%, #6a1b9a 100%)',
+                'duration' => '8 tuần',
+                'chapters' => '10 chương',
+                'description' => 'Chiến lược SEO, quảng cáo Facebook/Google Ads và xây dựng thương hiệu cá nhân.',
+                'learn_goals' => [
+                    'Nắm SEO cơ bản',
+                    'Chạy quảng cáo FB/Google',
+                    'Xây dựng thương hiệu'
+                ],
+                'outcomes' => [
+                    'Tự chạy quảng cáo',
+                    'Biết phân tích chiến dịch',
+                    'Áp dụng thực tế'
+                ]
+            ],
+
+            'machine-learning-ai' => [
+                'id' => 'machine-learning-ai',
+                'title' => 'Machine Learning & AI cơ bản',
+                'sub_title' => 'Học AI từ con số 0',
+                'teacher_name' => 'Chưa đề cập',
+                'teacher_avatar' => 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg',
+                'teacher_bio' => ['AI Engineer', '6 năm kinh nghiệm'],
+                'banner_img' => 'https://www.smartdatacollective.com/wp-content/uploads/2018/11/Machine-learning-scaled.jpg',
+                'bg_color' => 'linear-gradient(135deg, #004d40 0%, #00695c 100%)',
+                'duration' => '14 tuần',
+                'chapters' => '16 chương',
+                'description' => 'Bước đầu tiếp cận trí tuệ nhân tạo, xây dựng các mô hình dự đoán đơn giản.',
+                'learn_goals' => [
+                    'Hiểu thuật toán ML',
+                    'Xử lý dữ liệu',
+                    'Training mô hình'
+                ],
+                'outcomes' => [
+                    'Xây dựng mô hình dự đoán',
+                    'Hiểu AI cơ bản',
+                    'Áp dụng ML vào thực tế'
+                ]
+            ],
+
+            'quan-tri-mang' => [
+                'id' => 'quan-tri-mang',
+                'title' => 'Quản trị mạng và Bảo mật hệ thống',
+                'sub_title' => 'Làm chủ mạng máy tính',
+                'teacher_name' => 'Chưa đề cập',
+                'teacher_avatar' => 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg',
+                'teacher_bio' => ['System Admin', '10 năm kinh nghiệm'],
+                'banner_img' => 'https://thumbs.dreamstime.com/b/cyber-security-shield-logo-design-information-network-protection-vector-internet-safety-logotype-121786777.jpg',
+                'bg_color' => 'linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%)',
+                'duration' => '10 tuần',
+                'chapters' => '14 chương',
+                'description' => 'Kiến thức nền tảng về mạng máy tính, cấu hình server và phòng chống tấn công mạng.',
+                'learn_goals' => [
+                    'Cấu hình server',
+                    'Quản trị hệ thống',
+                    'Bảo mật mạng'
+                ],
+                'outcomes' => [
+                    'Triển khai Server cơ bản',
+                    'Hiểu cơ chế bảo mật',
+                    'Xử lý tấn công cơ bản'
+                ]
+            ]
+
+        ];
+    }
+
+    public static function getById($id) {
+        $courses = self::getAll();
+        return $courses[$id] ?? reset($courses);
+    }
+}
+?>
