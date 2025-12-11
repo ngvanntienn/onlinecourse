@@ -21,13 +21,11 @@
             gap: 4px;
         }
 
-
         .alert-success {
             background-color: #d1e7dd;
             color: #0f5132;
             border: 1px solid #badbcc;
         }
-
 
         .alert-danger {
             background-color: #f8d7da;
@@ -50,7 +48,6 @@
     <div class="container">
         <div class="left-panel register-mode">
             <div class="text-overlay">
-
                 <p class="intro-text">Tham gia cùng hàng ngàn học viên và giảng viên trên nền tảng học trực tuyến hàng đầu Việt Nam</p>
             </div>
         </div>
@@ -121,7 +118,7 @@
                 </div>
 
                 <button type="submit" class="btn-login">Đăng ký</button>
-                <!-- thông báo -->
+
                 <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger">
                         <i class="fa-solid fa-circle-exclamation"></i>

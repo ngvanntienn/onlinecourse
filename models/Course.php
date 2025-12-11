@@ -1,8 +1,13 @@
 <?php
 class Course {
-    public static function getAll() {
-        return [
-            'lap-trinh-web' => [
+    private $conn;
+
+    public function __construct() {
+        $db = new Database();
+        $this->conn = $db->pdo;
+    }    public function getDefaultCourses() {
+    return [
+         'lap-trinh-web' => [
                 'id' => '1',
                 'title' => 'Lập trình Web (HTML, CSS, JS)',
                 'sub_title' => 'Học nền tảng Web',
@@ -29,7 +34,7 @@ class Course {
                 ]
             ],
 
-            'php-mysql-nang-cao' => [
+                'php-mysql-nang-cao' => [
                 'id' => '2',
                 'title' => 'Lập trình PHP & MySQL Nâng cao',
                 'sub_title' => 'Làm chủ Backend',
@@ -245,11 +250,137 @@ class Course {
             ]
 
         ];
+
+    }
+    public function getAll() {
+        $stmt = $this->conn->prepare("SELECT * FROM courses ORDER BY id DESC");
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
-    public static function getById($id) {
-        $courses = self::getAll();
-        return $courses[$id] ?? reset($courses);
+    // Lấy khóa học theo ID
+    public function getById($id) {
+        $stmt = $this->conn->prepare("SELECT * FROM courses WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch();
     }
+
+    // Thêm khóa học mới
+    public function create($data) {
+        $sql = "INSERT INTO courses (title, description, price, duration_weeks, level, image, created_at) 
+                VALUES (:title, :description, :price, :duration_weeks, :level, :image, NOW())";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            ':title' => $data['title'],
+            ':description' => $data['description'],
+            ':price' => $data['price'],
+            ':duration_weeks' => $data['duration'],
+            ':level' => $data['level'],
+            ':image' => $data['image']
+        ]);
+    }
+
+    // Cập nhật khóa học theo ID
+    public function update($id, $data) {
+        $sql = "UPDATE courses SET 
+                    title=:title, description=:description, price=:price, 
+                    duration_weeks=:duration_weeks, level=:level, image=:image,
+                    updated_at=NOW()
+                WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            ':id' => $id,
+            ':title' => $data['title'],
+            ':description' => $data['description'],
+            ':price' => $data['price'],
+            ':duration_weeks' => $data['duration'],
+            ':level' => $data['level'],
+            ':image' => $data['image']
+        ]);
+    }
+
+    // Xóa khóa học theo ID
+    public function delete($id) {
+        $stmt = $this->conn->prepare("DELETE FROM courses WHERE id=:id");
+        return $stmt->execute([':id' => $id]);
+    }
+
+    // Lấy danh sách khóa học đã đăng ký của học viên, kèm tiến độ
+    public function getEnrolledCoursesWithProgress($studentId) {
+        $sql = "SELECT 
+                    c.id as course_id,
+                    c.title,
+                    c.image,
+                    u.fullname as instructor_name,
+                    e.progress as current_lesson,
+                    e.status,
+                    (SELECT COUNT(*) FROM lessons WHERE course_id = c.id) as total_lessons
+                FROM enrollments e
+                JOIN courses c ON e.course_id = c.id
+                LEFT JOIN users u ON c.instructor_id = u.id
+                WHERE e.student_id = :student_id
+                ORDER BY e.enrolled_date DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':student_id' => $studentId]);
+        $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $totalRegistered = count($courses);
+        $completedCount = 0;
+        $processedCourses = [];
+
+        foreach ($courses as $course) {
+            if ($course['status'] === 'completed') $completedCount++;
+
+            $totalLessons = $course['total_lessons'] > 0 ? $course['total_lessons'] : 1;
+            $current = $course['current_lesson'] > 0 ? $course['current_lesson'] : 0;
+
+            if ($course['status'] === 'completed') {
+                $percent = 100;
+                $current = $totalLessons;
+            } else {
+                $percent = round(($current / $totalLessons) * 100);
+            }
+
+            $img = !empty($course['image']) ? $course['image'] : '/onlinecourse/assets/image/course/default.png';
+
+            $processedCourses[] = [
+                'course_id' => $course['course_id'],
+                'title' => $course['title'],
+                'instructor_name' => $course['instructor_name'] ?? 'EasyStudy Teacher',
+                'image' => $img,
+                'current_chapter' => $current,
+                'total_chapters' => $totalLessons,
+                'progress_percent' => $percent,
+                'status' => $course['status']
+            ];
+        }
+
+        $overallPercent = $totalRegistered > 0 ? round(($completedCount / $totalRegistered) * 100) : 0;
+
+        return [
+            'total_registered' => $totalRegistered,
+            'completed_count' => $completedCount,
+            'overall_progress_percent' => $overallPercent,
+            'courses' => $processedCourses
+        ];
+    }
+
+    // Lấy khóa học theo ID từ DB (1 bản ghi)
+    public function getCourseById($id) {
+        $sql = "SELECT * FROM courses WHERE id = :id LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Lấy khóa học từ danh sách mặc định (mock data) theo ID
+    public function getMockCourseData($id) {
+        $courses = $this->getDefaultCourses();
+        foreach ($courses as $slug => $course) {
+            if ($course['id'] == $id) return $course;
+        }
+        return null; // Không tìm thấy
+    }
+
 }
 ?>

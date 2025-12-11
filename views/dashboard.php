@@ -54,7 +54,7 @@ require_once 'views/layouts/header_teacher.php';
         </div>
 
         <div class="col-md-4">
-            <a href="/onlinecourse/index.php?controller=lesson&action=manage" class="manage-card card-green">
+            <a href="views/instructor/lessons/index.php" class="manage-card card-green">
                 <div class="card-content">
                     <h3 class="card-title">Quản lý Bài giảng</h3>
                     <i class="fab fa-youtube card-icon-bg"></i>
@@ -66,7 +66,7 @@ require_once 'views/layouts/header_teacher.php';
         </div>
 
         <div class="col-md-4">
-            <a href="/onlinecourse/index.php?controller=teacher&action=students" class="manage-card card-blue">
+            <a href="/onlinecourse/index.php?controller=teacher&action=students" class="manage-card card-blue btn-maintenance">
                 <div class="card-content">
                     <h3 class="card-title">Quản lý Học viên</h3>
                     <i class="fas fa-folder card-icon-bg"></i>
@@ -76,6 +76,7 @@ require_once 'views/layouts/header_teacher.php';
                 </div>
             </a>
         </div>
+
     </div>
 
     <div class="reviews-container">
@@ -179,7 +180,29 @@ require_once 'views/layouts/header_teacher.php';
     </div>
   <?php endif; ?>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src = "assets/js/students.js"></script>
+<?php require_once 'views/users/manage.php';?>
 <?php require_once 'views/layouts/footer.php'; ?>
 <?php require_once 'instructor/materials/upload_teacher.php'; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('click', function(e) {
+    const target = e.target.closest('.btn-maintenance');
+    if(target) {
+        e.preventDefault();
+        showMaintenanceAlert();
+    }
+});
+
+function showMaintenanceAlert() {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-warning maintenance-alert';
+    alertDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Tính năng đang bảo trì! Vui lòng thử lại sau.';
+    document.body.appendChild(alertDiv);
+    setTimeout(() => alertDiv.style.opacity = '1', 10);
+    setTimeout(() => { alertDiv.style.opacity = '0'; setTimeout(() => alertDiv.remove(), 500); }, 3000);
+}
+
+
+</script>

@@ -1,6 +1,9 @@
 CREATE DATABASE IF NOT EXISTS onlinecourse;
 USE onlinecourse;
 
+/* Thêm status vào users */
+
+ALTER TABLE users ADD COLUMN status TINYINT NOT NULL DEFAULT 1 COMMENT '0: Inactive, 1: Active';
 -- 1. Bảng users
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -12,6 +15,7 @@ CREATE TABLE users (
     avatar VARCHAR(255) DEFAULT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
+
 
 -- 2. Bảng categories
 CREATE TABLE categories (

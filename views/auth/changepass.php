@@ -13,7 +13,7 @@
             font-weight: 700;
             color: #333;
             margin-top: 10px;
-            margin-bottom: 22px ; 
+            margin-bottom: 22px; 
         }
         .valid { 
             color: green; 
@@ -21,7 +21,6 @@
         .invalid { 
             color: red; 
         }
-        /* Thông báo lỗi và thành công */
         .alert {
             padding: 10px 15px;
             margin-bottom: 15px;
@@ -46,8 +45,7 @@
         <div class="left-panel register-mode">
             <div class="text-overlay">
                 <p class="intro-text">
-                    Tham gia cùng hàng ngàn học viên và giảng viên trên 
-                    nền tảng học trực tuyến hàng đầu Việt Nam
+                    Lấy lại mật khẩu dễ dàng với EasyStudy
                 </p>
             </div>
         </div>
@@ -58,11 +56,9 @@
                 </div>
                 <h1 class="brand-name">EasyStudy</h1>
             </div>
-            <p class="tagline">Nền tảng học trực tuyến s
-                ố 1 Việt Nam</p>
+            <p class="tagline">Nền tảng học trực tuyến số 1 Việt Nam</p>
             <h2 class="form-heading">Đổi mật khẩu</h2>
 
-            <!-- Thông báo lỗi hoặc thành công -->
             <?php if(isset($_SESSION['error'])): ?>
                 <div class="alert alert-error"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
             <?php endif; ?>
@@ -71,7 +67,6 @@
             <?php endif; ?>
 
             <form class="register-form" action="/onlinecourse/index.php?controller=auth&action=process_changepass" method="POST">
-
                 <div class="form-group">
                     <label for="new_password">Nhập mật khẩu mới</label>
                     <div class="input-container">
@@ -86,7 +81,6 @@
                     </div>
                 </div>
 
-                <!-- checklist mật khẩu -->
                 <div class="password-requirements">
                     <p>Mật khẩu phải đủ 8 ký tự, bao gồm:</p>
                     <ul>
@@ -101,6 +95,6 @@
             </form>
         </div>
     </div>
-    <script src = "assets/js/script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

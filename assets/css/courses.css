@@ -7,11 +7,13 @@
     align-items: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
+
 .hero-sub {
     font-size: 5rem;
     opacity: 0.9;
     font-weight: 400;
 }
+
 .hero-title-main {
     font-size: 4rem;
     font-weight: 800;
@@ -31,6 +33,7 @@
     filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
     margin-top: 20px;
 }
+
 .btn-register-main {
     background-color: #a582e6;
     color: white;
@@ -77,4 +80,3 @@ p, li, small {
 ul.list-unstyled li span {
     font-size: 1.6rem; 
 }
-

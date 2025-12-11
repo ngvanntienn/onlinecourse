@@ -19,25 +19,20 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 require_once 'views/layouts/header.php'; 
 ?>
 
-<!-- hero -->
 <section class="hero-section">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 mb-5 mb-md-0">
-                <h1 class="hero-title"><span class="text-title">Học trực tuyến
-                </span> trở nên <br> dễ dàng hơn</h1>
-                <p class="hero-subtitle">EasyStudy là một nền tảng thú vị sẽ giúp bạn 
-                    <br>học tốt theo nhiều phương thức khác nhau.</p>
+                <h1 class="hero-title"><span class="text-title">Học trực tuyến</span> trở nên <br> dễ dàng hơn</h1>
+                <p class="hero-subtitle">EasyStudy là một nền tảng thú vị sẽ giúp bạn <br>học tốt theo nhiều phương thức khác nhau.</p>
                 <div class="mt-4">
                     <a href="/onlinecourse/index.php?controller=auth&action=login" class="btn btn-hero-pink">Đăng nhập</a>
                     <a href="#discovery-section" class="btn btn-hero-watch"><i class="fas fa-play-circle"></i> Xem khóa học</a>
-                 
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="hero-image-wrapper">
                     <img src="/onlinecourse/assets/image/hero/student.png" alt="Student" class="img-fluid hero-girl-img">
-                    <!-- Floating cards -->
                     <div class="floating-card card-1">
                         <div class="bg-primary text-white p-2 rounded me-2"><i class="fas fa-calendar-alt"></i></div>
                         <div><strong>250k</strong><br><small>Học viên đã tham gia</small></div>
@@ -60,7 +55,6 @@ require_once 'views/layouts/header.php';
     </div>
 </section>
 
-<!-- thành tựu -->
 <section class="stats-section">
     <div class="container text-center">
         <h2 class="stats-title">Thành Tựu</h2>
@@ -85,7 +79,6 @@ require_once 'views/layouts/header.php';
         </div>
     </div>
 </section>
-
 
 <section class="about-section">
     <div class="container">
@@ -136,11 +129,9 @@ require_once 'views/layouts/header.php';
     </div>
 </section>
 
-<!-- Features -->
-
 <section class="features-list-section">
     <div class="container">
-        <div class="text-center mb-5"><h2 class="fw-bold text-dark"style = "font-size:3.5rem">Các tính năng của <span class="brand-text-style">EasyStudy</span></h2></div>
+        <div class="text-center mb-5"><h2 class="fw-bold text-dark" style="font-size:3.5rem">Các tính năng của <span class="brand-text-style">EasyStudy</span></h2></div>
         
         <div class="row align-items-center feature-item">
             <div class="col-lg-6">
@@ -162,9 +153,7 @@ require_once 'views/layouts/header.php';
             </div>
             <div class="col-lg-6 order-lg-1 pe-lg-5">
                 <h3 class="feature-title text-danger">Các công cụ cho giáo viên và học viên</h3>
-                <p class="text-muted"style = "font-size: 1.7rem;">Lớp học có một bộ công cụ giảng dạy năng động được tích hợp sẵn để triển 
-                    khai và sử dụng trong 
-                    suốt buổi học.Giáo viên có thể giao bài tập ngay lập tức để học viên hoàn thành và nộp bài.</p>
+                <p class="text-muted" style="font-size: 1.7rem;">Lớp học có một bộ công cụ giảng dạy năng động được tích hợp sẵn để triển khai và sử dụng trong suốt buổi học.Giáo viên có thể giao bài tập ngay lập tức để học viên hoàn thành và nộp bài.</p>
             </div>
         </div>
 
@@ -173,10 +162,8 @@ require_once 'views/layouts/header.php';
                 <div class="feature-img-container"><div class="blob-deco blob-purple"></div><img src="/onlinecourse/assets/image/function/a3.png" class="feature-main-img"></div>
             </div>
             <div class="col-lg-6 ps-lg-5">
-                <h3 class="feature-title text-purple-accent">Đánh giá, Bài tập ngắn (Quiz),
-                    <br> Bài kiểm tra</h3>
-                <p class="text-muted"style = "font-size: 1.7rem;">Dễ dàng khởi chạy các bài tập, bài tập ngắn và bài kiểm tra trực tiếp (live). 
-                    Kết quả của học viên được tự động nhập vào sổ điểm trực tuyến.</p>
+                <h3 class="feature-title text-purple-accent">Đánh giá, Bài tập ngắn (Quiz), <br> Bài kiểm tra</h3>
+                <p class="text-muted" style="font-size: 1.7rem;">Dễ dàng khởi chạy các bài tập, bài tập ngắn và bài kiểm tra trực tiếp (live). Kết quả của học viên được tự động nhập vào sổ điểm trực tuyến.</p>
             </div>
         </div>
 
@@ -186,8 +173,7 @@ require_once 'views/layouts/header.php';
             </div>
             <div class="col-lg-6 order-lg-1 pe-lg-5">
                 <h3 class="feature-title text-danger">Công cụ quản lý lớp học cho giáo viên</h3>
-                <p class="text-muted"style = "font-size: 1.7rem;">Lớp học cung cấp các công cụ giúp điều hành và quản lý lớp như Danh sách Lớp, Chuyên cần, và nhiều hơn nữa.Với 
-                    sổ điểm, giáo viên có thể xem lại và chấm điểm các bài kiểm tra và bài tập ngắn ngay lập tức (trong thời gian thực).</p>
+                <p class="text-muted" style="font-size: 1.7rem;">Lớp học cung cấp các công cụ giúp điều hành và quản lý lớp như Danh sách Lớp, Chuyên cần, và nhiều hơn nữa.Với sổ điểm, giáo viên có thể xem lại và chấm điểm các bài kiểm tra và bài tập ngắn ngay lập tức (trong thời gian thực).</p>
             </div>
         </div>
 
@@ -196,15 +182,15 @@ require_once 'views/layouts/header.php';
                 <div class="feature-img-container"><div class="blob-deco blob-purple"></div><img src="/onlinecourse/assets/image/function/a1.png" class="feature-main-img"></div>
             </div>
             <div class="col-lg-6 ps-lg-5">
-                <h3 class="feature-title text-purple-accent" style = "color: #349a4dff;">Thảo luận 1-1</h3>
-                <p class="text-muted" style = "font-size: 1.7rem;">Giáo viên và trợ giảng có thể nói chuyện riêng với học sinh.</p>
+                <h3 class="feature-title text-purple-accent" style="color: #349a4dff;">Thảo luận 1-1</h3>
+                <p class="text-muted" style="font-size: 1.7rem;">Giáo viên và trợ giảng có thể nói chuyện riêng với học sinh.</p>
             </div>
         </div>
         
-        <div class="text-center mt-4"><button id ="btnwatchAdd" class="btn btn-discovery-purple">Xem thêm</button></div>
+        <div class="text-center mt-4"><button id="btnwatchAdd" class="btn btn-discovery-purple">Xem thêm</button></div>
     </div>
 </section>
-<!-- khám phá các khóa học -->
+
 <section class="discovery-section" id="discovery-section">
     <div class="container">
         <h2 class="section-heading mb-5"><span class="text-highlight-red">Khám phá</span> các khóa học</h2>
@@ -237,7 +223,7 @@ require_once 'views/layouts/header.php';
                         Thu gọn
                     </a>
                 <?php else: ?>
-                    <a href="?view=all#discovery-section" class="btn btn-discovery-pink px-4 py-2 fw-bold" style ="font-size:1.6rem;">
+                    <a href="?view=all#discovery-section" class="btn btn-discovery-pink px-4 py-2 fw-bold" style="font-size:1.6rem;">
                         Xem thêm 
                     </a>
                 <?php endif; ?>
@@ -251,7 +237,6 @@ require_once 'views/layouts/header.php';
     </div>
 </section>
 
-<!-- đánh giá -->
 <section class="testimonial-section">
     <div class="container">
         <div class="row align-items-center">
@@ -283,13 +268,11 @@ require_once 'views/layouts/header.php';
     </div>
 </section>
 
-<!-- pop-up thông báo -->
 <div id="loginModal">
     <div class="login-modal-content">
         <h3>Thông báo</h3>
         <p>Bạn cần đăng nhập để thực hiện chức năng này!</p>
         <div class="login-modal-buttons">
-            
             <button id="goLoginModal">Đăng nhập</button>
             <button id="closeLoginModal">Đóng</button>
         </div>
