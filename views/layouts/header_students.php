@@ -9,8 +9,6 @@ $userAvatar = (isset($_SESSION['avatar']) && !empty($_SESSION['avatar']))
             ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] 
             : $defaultAvatar;
 $avatarDisplay = $userAvatar . '?v=' . time();
-
-/* hiển thị tên mặc định là học viên */
 $displayName = isset($_SESSION['fullname']) ? $_SESSION['fullname'] : 'Học viên';
 $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
 ?>
@@ -20,103 +18,17 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/style.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/students.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/courses.css">
-    <style>
-        .student-navbar {
-            background-color: #fff;
-            height: 90px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            padding: 0 20px;
-            z-index: 1000;
-        }
-
-        .brand-logo {
-            font-weight: 900;
-            color: #692e8e;
-            font-size: 2rem; 
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            margin-right: 40px;
-        }
-
-        /* nút menu */
-        .nav-box-link {
-            display: inline-block;
-            background-color: #fff;
-            color: #555;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 10px 25px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            font-size: 1.3rem;
-            white-space: nowrap;
-            min-width: 110px;
-            text-align: center;
-        }
-
-        .nav-box-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            color: #692e8e;
-            border-color: #d3cce3;
-        }
-
-        .nav-box-link.active {
-            background-color: #f3effb;
-            border-color: #692e8e;
-            color: #692e8e;
-            box-shadow: 0 4px 8px rgba(105, 46, 142, 0.2);
-        }
-
-        /* avatar */
-        .user-avatar-circle {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-profile-wrapper {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .user-name-text {
-            font-weight: 600;
-            font-size: 1.4rem;
-            color: #333;
-        }
-
-        /* dropdown style */
-        .dropdown-menu {
-            border-radius: 9px;
-            overflow: hidden;
-            font-size: 1.3rem;
-        }
-        .modal-dialog {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 1rem);
-        }
-    </style>
+    <link rel="stylesheet" href="/onlinecourse//assets/css/style.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/onlinecourse//assets/css/students.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/onlinecourse/assets/css/courses.css?v=<?= time() ?>">
 </head>
 <body>
 
-    <!-- navbar -->
-    <nav class="navbar fixed-top student-navbar">
+<!-- navbar -->
+<nav class="navbar fixed-top student-navbar">
     <div class="container h-100">
-
         <a class="brand-logo me-auto" href="/onlinecourse/index.php">
             <i class="fas fa-graduation-cap me-2"></i>EasyStudy
         </a>
@@ -149,18 +61,18 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                             <strong><?= $displayName ?></strong>
                         </div>
                     </li>
-<li>
-  <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#accountInfoModal">
-    <i class="fas fa-columns fa-fw me-2 text-primary"></i>Thông tin tài khoản
-  </a>
-</li>
+                <li>
+        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#accountInfoModal">
+            <i class="fas fa-columns fa-fw me-2 text-primary"></i>Thông tin tài khoản
+        </a>
+        </li>
 
-<li>
-  <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-    <i class="fas fa-key fa-fw me-2 text-primary"></i>Đổi mật khẩu
-  </a>
-</li>
-                    <li><a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#uploadAvatarModal">
+        <li>
+        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+            <i class="fas fa-key fa-fw me-2 text-primary"></i>Đổi mật khẩu
+        </a>
+        </li>
+                            <li><a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#uploadAvatarModal">
                         <i class="fas fa-camera me-2 text-info"></i>Đổi ảnh đại diện
                     </a></li>
 
@@ -173,53 +85,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
             </div>
         </div>
     </div>
-    </nav>
-
-<!-- modal Thông tin tài khoản -->
-<div class="modal fade" id="accountInfoModal" tabindex="-1" aria-labelledby="accountInfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content rounded-4 shadow">
-            <div class="modal-header bg-purple text-white">
-                <h5 class="modal-title" id="accountInfoModalLabel">Thông tin tài khoản</h5>
-               
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            
-            </div>
-            
-            <form method="POST" action="/onlinecourse/index.php?controller=auth&action=updateProfile">
-                <div class="modal-body">
-                    <?php
-                    $userModel = new User();
-                    $userId = $_SESSION['user_id'];
-                    $user = $userModel->getUserById($userId);
-                    ?>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Họ và tên</label>
-                            <input type="text" class="form-control" name="fullname" value="<?= htmlspecialchars($user['fullname']) ?>" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Tên đăng nhập</label>
-                            <input type="text" class="form-control" name="username" value="<?= htmlspecialchars($user['username']) ?>" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Vai trò</label>
-                            <input type="text" class="form-control" value="<?= $user['role'] == 2 ? 'Admin' : ($user['role'] == 1 ? 'Giáo viên' : 'Học viên') ?>" disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+</nav>
 
 <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md">
@@ -252,7 +118,5 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
         </div>
     </div>
 </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src = "/onlinecourse/assets/js/students.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src = "<?= $baseUrl ?>/assets/js/students.js"></script>
