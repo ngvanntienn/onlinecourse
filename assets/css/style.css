@@ -646,3 +646,115 @@ html {
     border-radius: 20px;
 }
 
+/* Sử dụng CSS tùy chỉnh để làm giống giao diện */
+
+/* Thiết lập font và container (có thể dùng container của Bootstrap) */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* 1. Header/Banner */
+.course-header {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    position: relative;
+    padding: 40px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.course-header .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Lớp phủ tối */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+}
+.course-header h1 { font-size: 1.5rem; margin-bottom: 0; font-weight: 300; }
+.course-header h2 { font-size: 2.5rem; margin-top: 5px; font-weight: bold; color: #fff; }
+
+/* 2. Nội dung chính */
+.course-main-content .card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.overview-section h2 {
+    color: #4CAF50; /* Màu xanh lá cây */
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.section-title {
+    color: #333;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+.benefits-list li, .achievements-list li {
+    list-style: none;
+    padding: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* 3. Sidebar/Đăng ký */
+.course-sidebar .sidebar-box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.duration-block {
+    background-color: #f0f0f0;
+    color: #333;
+}
+.btn-register {
+    background-color: #9C27B0; /* Màu tím */
+    border-color: #9C27B0;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+}
+.btn-register:hover {
+    background-color: #7B1FA2;
+}
+.btn-preview {
+    background-color: transparent;
+    border: 2px solid #9C27B0;
+    color: #9C27B0;
+    font-weight: bold;
+    padding: 12px;
+}
+.btn-preview:hover {
+    background-color: #9C27B0;
+    color: white;
+}
+.sticky-top {
+    /* Đảm bảo sidebar cố định khi cuộn */
+    position: sticky;
+    top: 20px; 
+}
+
+/* 4. Giảng viên */
+.instructor-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #eee;
+}
+.instructor-card h4 {
+    color: #333;
+    font-weight: bold;
+}
