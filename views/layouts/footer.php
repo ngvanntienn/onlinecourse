@@ -123,7 +123,9 @@
 
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
-    
+    <a class="navbar-brand logo-text" href="#">
+        <i class="fas fa-graduation-cap me-2"></i>EasyStudy
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -135,7 +137,10 @@
         <li class="nav-item"><a class="nav-link" href="#">Về chúng tôi</a></li>
       </ul> 
     </div>
-   
+    <div class="d-flex gap-2">
+        <a href="/onlinecourse/views/auth/login.php" class="btn btn-custom-login">Đăng nhập</a>
+        <a href="/onlinecourse/views/auth/register.php" class="btn btn-custom-register">Đăng ký</a>
+    </div>
   </div>
 </nav>
 

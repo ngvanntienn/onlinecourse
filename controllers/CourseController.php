@@ -1,183 +1,34 @@
 <?php
-// controllers/CourseController.php
 require_once 'models/Course.php';
+require_once 'models/Lesson.php';
 
 class CourseController {
-    private $courseModel;
-    
-    public function __construct() {
-        $this->courseModel = new Course();
-        
+
+    public function index() {
+        $courseModel = new Course();
+        $courses = $courseModel->getAll();
+
+        require_once 'views/layouts/header.php';
+        require_once 'views/courses/index.php';
+        require_once 'views/layouts/footer.php';
     }
-    
     public function detail() {
-        // Lấy dữ liệu từ Model
-        $result = $this->courseModel->getById(1);
-        $discoveryCourses = $this->courseModel->getAll();
+        $id = $_GET['id'] ?? null;
+        $courseModel = new Course();
+        $course = $courseModel->getById($id);
 
-
-
-        // Xử lý dữ liệu trả về (có thể có hoặc không có key 'data')
-        if (isset($result['data'])) {
-            $course = $result['data'];
-        } else {
-            $course = $result; // Giả sử toàn bộ mảng là course data
+        if (!$course) {
+            die("Khóa học không tồn tại");
         }
-         $overview = "
-Giới thiệu khóa học: Khóa học Lập Trình Web dành cho người mới bắt đầu giúp bạn làm quen và xây dựng nền tảng vững chắc trong lĩnh vực Frontend. 
-Nội dung học đi từ căn bản đến thực hành nâng cao, phù hợp với sinh viên hoặc người chưa biết lập trình.
 
-Bạn sẽ tiếp cận:
-• Nền tảng Web: HTML, CSS, JavaScript
-• Tư duy cấu trúc và thiết kế giao diện
-• Cách làm việc với thư viện, tổ chức dự án, tối ưu giao diện
-• Thực hành liên tục với bài tập và 01 dự án lớn cuối khóa
+        $lessonModel = new Lesson();
+        $lessons = $lessonModel->getByCourseId($id);
 
-Hoàn thành khóa học, bạn sẽ:
-• Thành thạo HTML5, biết viết cấu trúc và semantic chuẩn
-• Làm chủ CSS3, Flexbox, Grid, Responsive
-• Hiểu rõ JavaScript cơ bản: biến, hàm, DOM, event
-• Biết chuyển từ thiết kế (Figma) sang giao diện thực tế
-• Tự xây dựng một website hoàn chỉnh
-• Áp dụng tư duy viết code gọn gàng, dễ mở rộng và bảo trì
-";
-        // Đảm bảo các trường cần thiết tồn tại
-       $course = array_merge([
-    'title' => 'Khóa Học Fullstack Developer',
-    'description' => 'Từ Zero đến Hero - Làm chủ Frontend, Backend và DevOps',
-    'overview' => $overview,
-    'dur' => '30 giờ / 10 chương',
-    'price_discount' => '2.499.000đ'
-], $course);
+        $courses_data = $courseModel->getAll(); // tải khóa học khác
 
-        
-        // Dữ liệu giảng viên
-        $teacher = [
-            'name' => 'TRỊNH THỊ VÂN',
-            'degree' => 'Thạc sĩ Khoa học máy tính - École Nationale Supérieure des Mines de Saint-Étienne, Pháp',
-            'experience' => '5 năm kinh nghiệm giảng dạy và phát triển phần mềm',
-            'specialization' => 'Fullstack Development',
-            'students_trained' => '2,500+',
-            'initials' => 'TV',
-            'avatar_color' => 'from-purple-200 to-pink-100'
-        ];
-        
-        // Dữ liệu quyền lợi
-        $benefits = [
-            'Học mọi lúc, mọi nơi trên mọi thiết bị',
-            'Hỗ trợ 1-1 trực tiếp với mentor',
-            'Bài tập thực hành & Project thực tế',
-            'Truy cập trọn đời tài liệu khóa học',
-            'Chứng chỉ hoàn thành có giá trị'
-        ];
-        
-        // Render view với dữ liệu
-      $this->render('courses/detail', [
-    'page_title' => 'Chi tiết khóa học - ' . $course['title'],
-    'course' => $course,
-    'teacher' => $teacher,
-    'benefits' => $benefits,
-    'overview' => $overview,
-       'discoveryCourses' => $discoveryCourses
-]);
-
-
-    }
-    
-    public function register() {
-        // Xử lý đăng ký
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Xử lý form đăng ký
-            $name = $_POST['name'] ?? '';
-            $email = $_POST['email'] ?? '';
-            $phone = $_POST['phone'] ?? '';
-            
-            // Gọi model để xử lý đăng ký
-            $result = $this->courseModel->register(1, [
-                'name' => $name,
-                'email' => $email,
-                'phone' => $phone
-            ]);
-            
-            if ($result['success']) {
-                $_SESSION['success_message'] = $result['message'];
-                header('Location: ' . BASE_URL . '?controller=course&action=detail');
-                exit;
-            }
-        }
-        
-        // Hiển thị form đăng ký
-        $this->render('courses/register', [
-            'page_title' => 'Đăng ký khóa học'
-        ]);
-    }
-    
-    public function trial() {
-        // Lấy bài học thử
-        $result = $this->courseModel->getTrialLesson(1);
-        
-        if (isset($result['data'])) {
-            $lesson = $result['data'];
-        } else {
-            $lesson = $result;
-        }
-        
-        $this->render('courses/trial', [
-            'page_title' => 'Bài học thử miễn phí',
-            'lesson' => $lesson
-        ]);
-    }
-    
-    private function render($view, $data = []) {
-        // Truyền dữ liệu vào view
-        extract($data);
-        
-        // Load view
-        $viewPath = "views/{$view}.php";
-        if (file_exists($viewPath)) {
-            require_once $viewPath;
-        } else {
-            die("View không tồn tại: {$viewPath}");
-        }
-    }
-    
-    public function dashboard() {
-        // Lấy thông tin người dùng
-        $user = [
-            'name' => 'Phương Thảo',
-            'completed_courses' => 7,
-            'total_courses' => 20
-        ];
-        
-        // Lấy tiến độ
-        $progress = $this->model->getUserProgress();
-        
-        // Lấy danh sách khóa học
-        $enrolledCourses = $this->model->getEnrolledCourses();
-        $allCourses = $this->model->getAllCourses();
-        
-        // Hiển thị view
-        require_once APP_ROOT . '/app/views/templates/header.php';
-        require_once APP_ROOT . '/app/views/course/dashboard.php';
-        require_once APP_ROOT . '/app/views/templates/footer.php';
-    }
-    
-    public function continueLearning() {
-        if (isset($_GET['course_id'])) {
-            $courseId = (int)$_GET['course_id'];
-            $course = $this->model->continueCourse($courseId);
-            
-            if ($course) {
-                // Chuyển hướng về dashboard với thông báo
-                $_SESSION['message'] = "Bạn đã tiếp tục học khóa: " . $course['title'];
-                $_SESSION['message_type'] = "success";
-                header("Location: /course-management/dashboard");
-                exit();
-            }
-        }
-        
-        header("Location: /course-management/dashboard");
-        exit();
+        require_once 'views/layouts/header_students.php';
+        require_once 'views/courses/detail.php';
+        require_once 'views/layouts/footer.php';
     }
 }
 ?>

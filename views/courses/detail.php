@@ -1,225 +1,152 @@
-<?php require_once 'views/layouts/header_students.php'; 
-require_once 'models/Course.php';
-?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <link rel="stylesheet" href="/onlinecourse/assets/css/student.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/style.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/course.css">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khóa học Fullstack Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title><?= htmlspecialchars($course['title']) ?></title>
-
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
+            background-color: #f8fafc;
         }
-        .card {
+        .center-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .full-width-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            font-weight: bold;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .btn-register {
+            background: linear-gradient(90deg, #C3A7FF 0%, #9270FF 100%);
+            color: white;
+        }
+        .btn-register:hover {
+            background: linear-gradient(90deg, #b395f0 0%, #8365e0 100%);
+            box-shadow: 0 4px 12px rgba(146, 112, 255, 0.3);
+        }
+        .btn-trial {
+            border: 2px solid #C3A7FF;
+            color: #4b2bbf;
+        }
+        .btn-trial:hover {
+            background-color: #f5f3ff;
+        }
+        .course-card {
             background: white;
-            border-radius: 18px;
-            padding: 28px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
         }
     </style>
 </head>
-
-<body class="pb-10">
-
-<!-- Banner ngay dưới header -->
-<div class="mt-20">
-    <img src="assets/image/course/web.png"
-         class="w-full h-[420px] object-cover rounded-xl shadow-md">
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="max-w-6xl mx-auto px-4 mt-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
-
-    <!-- LEFT CONTENT -->
-    <div class="lg:col-span-2 space-y-10">
-
-        <!-- Course Title Card -->
-        <div class="card">
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">
-                <?= htmlspecialchars($course['title']) ?>
-            </h1>
-
-            <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">
-                Tổng quan khóa học
-            </h2>
-
-            <p class="text-gray-700 text-lg mb-6 leading-relaxed">
-                <?= nl2br(htmlspecialchars($course['overview'] ?? $course['description'])) ?>
-            </p>
-
-
-            <!-- Duration Badge -->
-            <div class="inline-flex items-center gap-2 bg-purple-100 px-4 py-2 rounded-full text-purple-700 font-semibold">
-                ⏳ Thời lượng:
-                <?= htmlspecialchars($course['dur']) ?>
-            </div>
-
-            <div class="mt-7 space-y-4">
-                <a href="#" class="block w-full bg-purple-500 text-white py-4 font-bold rounded-xl text-center text-lg hover:bg-purple-600">
-                    ĐĂNG KÝ NGAY
-                </a>
-                <a href="#" class="block w-full border border-purple-500 text-purple-600 py-4 font-bold rounded-xl text-center text-lg hover:bg-purple-50">
-                    Xem thử (Bài học miễn phí)
-                </a>
-            </div>
-        </div>
-
-        <!-- Teacher Card -->
-        <div class="card">
-            <h2 class="text-xl font-bold text-gray-900 mb-6">👩‍🏫 Giảng viên</h2>
-
-            <div class="flex gap-6 items-start">
-                <div class="w-24 h-24 rounded-full bg-purple-200 flex items-center justify-center">
-                    <span class="text-3xl font-bold text-purple-700">
-                        <?= htmlspecialchars($teacher['initials']) ?>
-                    </span>
-                </div>
-
-                <div>
-                    <h3 class="font-bold text-xl text-gray-900">
-                        <?= htmlspecialchars($teacher['name']) ?>
-                    </h3>
-                    <p class="text-gray-600 mt-1">
-                        <?= htmlspecialchars($teacher['degree']) ?>
-                    </p>
-                    <p class="text-gray-600 mt-1">
-                        <?= htmlspecialchars($teacher['experience']) ?>
-                    </p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 mt-6">
-                <div class="bg-gray-50 p-4 rounded-lg text-center">
-                    <div class="text-sm text-gray-600">Chuyên môn</div>
-                    <div class="font-semibold text-gray-900">
-                        <?= htmlspecialchars($teacher['specialization']) ?>
+<body>
+    <div class="center-container py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- LEFT COLUMN -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Course Header Card -->
+                <div class="course-card p-8">
+                    <!-- Title Section -->
+                    <div class="text-center lg:text-left mb-8">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-4">Khóa Học Fullstack Developer</h1>
+                        <p class="text-gray-600 text-lg">Từ Zero đến Hero - Làm chủ Frontend, Backend và DevOps</p>
                     </div>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg text-center">
-                    <div class="text-sm text-gray-600">Học viên đào tạo</div>
-                    <div class="font-semibold text-gray-900">
-                        <?= htmlspecialchars($teacher['students_trained']) ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- RIGHT SIDEBAR -->
-    <div>
-        <div class="card space-y-5 sticky top-10">
-
-            <h3 class="text-lg font-bold text-gray-900 text-center">Quyền lợi học viên</h3>
-
-            <p class="text-center text-3xl text-purple-600 font-extrabold">
-                <?= htmlspecialchars($course['price_discount']) ?>
-            </p>
-
-            <ul class="space-y-4 pt-4 border-t">
-                <?php foreach ($benefits as $b): ?>
-                    <li class="flex items-start gap-3">
-                        <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center">
-                            ✔
+                    
+                    <!-- Duration Badge -->
+                    <div class="flex justify-center lg:justify-start mb-8">
+                        <div class="px-5 py-3 bg-purple-50 text-purple-700 font-semibold rounded-full inline-flex items-center gap-2">
+                            <span>⏱️</span>
+                            <span>Thời lượng: 30 giờ / 10 chương</span>
                         </div>
-                        <span class="text-gray-700"><?= htmlspecialchars($b) ?></span>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-
-        </div>
-    </div>
-
-</div>
-<!-- Khám phá khóa học -->
-<section class="pt-5" id="discovery-section">
-
-    <h2 class="section-title border-top pt-4">
-        <span class="text-purple">Khám phá</span> khóa học
-    </h2>
-
-    <div class="search-input-wrapper">
-        <i class="fas fa-search icon-search"></i>
-        <input type="text" class="search-input" placeholder="Tìm khóa học mới">
-        <i class="fas fa-filter icon-filter" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#filterModal"></i>
-    </div>
-
-    <?php if (!empty($discoveryCourses) && count($discoveryCourses) > 0): ?>
-        <?php foreach ($discoveryCourses as $item): ?>
-            <?php 
-                $imgSrc = !empty($item['image']) 
-                    ? (strpos($item['image'], 'http') === 0 ? $item['image'] : '/onlinecourse/assets/uploads/courses/' . $item['image'])
-                    : '/onlinecourse/assets/image/course/default.png';
-            ?>
-            <div class="mb-5">
-                <div class="course-header">
-                    <h3 class="course-cat-name"><?= htmlspecialchars($item['title']) ?></h3>
-                    <a href="/onlinecourse/index.php?controller=course&action=detail&id=<?= $item['id'] ?>" class="link-detail">
-                        XEM CHI TIẾT <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
+                    </div>
+                    
+                    <!-- Two Full Width Buttons -->
+                    <div class="space-y-4">
+                        <button class="full-width-btn btn-register">
+                            ĐĂNG KÝ NGAY
+                        </button>
+                        <button class="full-width-btn btn-trial">
+                            Xem thử (Bài học miễn phí)
+                        </button>
+                    </div>
                 </div>
-
-                <div style="height: 250px; overflow: hidden; border-radius: 0;">
-                    <img src="<?= htmlspecialchars($imgSrc) ?>" class="course-banner-img w-100 h-100" style="object-fit: cover;">
+                
+                <!-- Teacher Card -->
+                <div class="course-card p-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">👩‍🏫 Giảng viên</h2>
+                    
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 bg-purple-50 rounded-xl">
+                        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purple-200 to-pink-100 flex items-center justify-center">
+                            <span class="text-2xl font-bold text-purple-600">TV</span>
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <h3 class="font-bold text-lg text-gray-900 uppercase mb-2">TRỊNH THỊ VÂN</h3>
+                            <p class="text-gray-700 mb-2">Thạc sĩ Khoa học máy tính - École Nationale Supérieure des Mines de Saint-Étienne, Pháp</p>
+                            <p class="text-gray-700">5 năm kinh nghiệm giảng dạy và phát triển phần mềm</p>
+                        </div>
+                    </div>
                 </div>
-
-                <a href="/onlinecourse/index.php?controller=enrollment&action=create&course_id=<?= $item['id'] ?>" 
-                   class="btn btn-register-pink mt-2 d-block text-center text-decoration-none">
-                    Đăng ký ngay
-                </a>
             </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p class="text-muted mt-3">Hiện chưa có khóa học nào.</p>
-    <?php endif; ?>
-
-</section>
-
-        <div class="text-center mt-4">
-            <?php if ($isShowAll): ?>
-                <a href="/onlinecourse/index.php?controller=student&action=dashboard#discovery-section" 
-                class="fw-bold mb-0 text-decoration-none text-dark" style="font-size: 1.8rem;">
-                    Thu gọn <br> <i class="fas fa-arrow-up"></i>
-                </a>
-            <?php else: ?>
-                <a href="/onlinecourse/index.php?controller=student&action=dashboard&view=all#discovery-section" 
-                class="fw-bold mb-0 text-decoration-none text-dark" style="font-size: 1.8rem;">
-                    Xem thêm <br> <i class="fas fa-arrow-down"></i>
-                </a>
-            <?php endif; ?>
-        </div>        
-    </div> 
-</div> 
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <?php if(isset($_SESSION['success'])): ?>
-    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body" style = "font-size: 1.5rem;">
-          <?= $_SESSION['success']; unset($_SESSION['success']); ?>
+            
+            <!-- RIGHT COLUMN -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-8 course-card p-6 space-y-6">
+                    <!-- Title -->
+                    <h3 class="text-lg font-bold text-gray-900">Quyền lợi học viên</h3>
+                    
+                    <!-- Two Full Width Buttons -->
+                    <div class="space-y-4">
+                        <button class="full-width-btn btn-register">
+                            ĐĂNG KÝ NGAY
+                        </button>
+                        <button class="full-width-btn btn-trial">
+                            Xem thử (Miễn phí)
+                        </button>
+                    </div>
+                    
+                    <!-- Benefits List -->
+                    <div class="space-y-4 pt-4 border-t border-gray-200">
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                                <span class="text-purple-600 text-sm">✓</span>
+                            </div>
+                            <span>Học mọi lúc, mọi nơi trên mọi thiết bị</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                                <span class="text-purple-600 text-sm">✓</span>
+                            </div>
+                            <span>Hỗ trợ 1-1 trực tiếp với mentor</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                                <span class="text-purple-600 text-sm">✓</span>
+                            </div>
+                            <span>Bài tập thực hành & Project thực tế</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                                <span class="text-purple-600 text-sm">✓</span>
+                            </div>
+                            <span>Truy cập trọn đời tài liệu khóa học</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                                <span class="text-purple-600 text-sm">✓</span>
+                            </div>
+                            <span>Chứng chỉ hoàn thành có giá trị</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
     </div>
-<?php endif; ?>
-
-  <?php if(isset($_SESSION['error'])): ?>
-    <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body" "font-size: 1.5rem;">
-          <?= $_SESSION['error']; unset($_SESSION['error']); ?>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
-  <?php endif; ?>
-</div>
-<?php require_once 'views/layouts/footer.php'; ?>
 </body>
 </html>
