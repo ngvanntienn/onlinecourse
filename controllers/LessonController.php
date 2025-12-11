@@ -39,7 +39,6 @@ class LessonController {
         $current_course_id = $courseId; 
         
         require_once 'views/layouts/header.php';
-        require_once 'views/instructor/lessons/create.php';
         require_once 'views/layouts/footer.php';
     }
 }
