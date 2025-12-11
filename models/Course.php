@@ -247,9 +247,35 @@ class Course {
         ];
     }
 
-    public static function getById($id) {
-        $courses = self::getAll();
-        return $courses[$id] ?? reset($courses);
+   public function getById($id) {
+    $all = self::getAll();
+
+    foreach ($all as $slug => $course) {
+        if ($course['id'] == $id) {
+            return $course;
+        }
+    }
+}
+
+    public function getUserProgress() {
+        return [
+            'completed' => 7,
+            'total' => 20,
+            'ready_for_next' => 7
+        ];
+    }
+    
+    public function continueCourse($courseId) {
+        // Giả lập tiếp tục học
+        foreach ($this->enrolledCourses as &$course) {
+            if ($course['id'] == $courseId) {
+                if ($course['current_chapter'] < $course['total_chapters']) {
+                    $course['current_chapter']++;
+                }
+                return $course;
+            }
+        }
+        return null;
     }
 }
 ?>

@@ -7,28 +7,49 @@ class CourseController {
     
     public function __construct() {
         $this->courseModel = new Course();
+        
     }
     
     public function detail() {
         // Lấy dữ liệu từ Model
         $result = $this->courseModel->getById(1);
-        
+        $discoveryCourses = $this->courseModel->getAll();
+
+
+
         // Xử lý dữ liệu trả về (có thể có hoặc không có key 'data')
         if (isset($result['data'])) {
             $course = $result['data'];
         } else {
             $course = $result; // Giả sử toàn bộ mảng là course data
         }
-        
+         $overview = "
+Giới thiệu khóa học: Khóa học Lập Trình Web dành cho người mới bắt đầu giúp bạn làm quen và xây dựng nền tảng vững chắc trong lĩnh vực Frontend. 
+Nội dung học đi từ căn bản đến thực hành nâng cao, phù hợp với sinh viên hoặc người chưa biết lập trình.
+
+Bạn sẽ tiếp cận:
+• Nền tảng Web: HTML, CSS, JavaScript
+• Tư duy cấu trúc và thiết kế giao diện
+• Cách làm việc với thư viện, tổ chức dự án, tối ưu giao diện
+• Thực hành liên tục với bài tập và 01 dự án lớn cuối khóa
+
+Hoàn thành khóa học, bạn sẽ:
+• Thành thạo HTML5, biết viết cấu trúc và semantic chuẩn
+• Làm chủ CSS3, Flexbox, Grid, Responsive
+• Hiểu rõ JavaScript cơ bản: biến, hàm, DOM, event
+• Biết chuyển từ thiết kế (Figma) sang giao diện thực tế
+• Tự xây dựng một website hoàn chỉnh
+• Áp dụng tư duy viết code gọn gàng, dễ mở rộng và bảo trì
+";
         // Đảm bảo các trường cần thiết tồn tại
-        $course = array_merge([
-            'title' => 'Khóa Học Fullstack Developer',
-            'description' => 'Từ Zero đến Hero - Làm chủ Frontend, Backend và DevOps',
-            'duration' => '30 giờ / 10 chương',
-            'price_original' => '3.999.000đ',
-            'price_discount' => '2.499.000đ',
-            'discount_percent' => '37.5%'
-        ], $course);
+       $course = array_merge([
+    'title' => 'Khóa Học Fullstack Developer',
+    'description' => 'Từ Zero đến Hero - Làm chủ Frontend, Backend và DevOps',
+    'overview' => $overview,
+    'dur' => '30 giờ / 10 chương',
+    'price_discount' => '2.499.000đ'
+], $course);
+
         
         // Dữ liệu giảng viên
         $teacher = [
@@ -51,13 +72,16 @@ class CourseController {
         ];
         
         // Render view với dữ liệu
-        $this->render('courses/detail', [
-            'page_title' => 'Chi tiết khóa học - ' . $course['title'],
-            'course' => $course,
-            'teacher' => $teacher,
-            'benefits' => $benefits,
-            'guarantee' => 'Đảm bảo hoàn tiền 100% trong 7 ngày'
-        ]);
+      $this->render('courses/detail', [
+    'page_title' => 'Chi tiết khóa học - ' . $course['title'],
+    'course' => $course,
+    'teacher' => $teacher,
+    'benefits' => $benefits,
+    'overview' => $overview,
+       'discoveryCourses' => $discoveryCourses
+]);
+
+
     }
     
     public function register() {
@@ -115,6 +139,45 @@ class CourseController {
         } else {
             die("View không tồn tại: {$viewPath}");
         }
+    }
+    
+    public function dashboard() {
+        // Lấy thông tin người dùng
+        $user = [
+            'name' => 'Phương Thảo',
+            'completed_courses' => 7,
+            'total_courses' => 20
+        ];
+        
+        // Lấy tiến độ
+        $progress = $this->model->getUserProgress();
+        
+        // Lấy danh sách khóa học
+        $enrolledCourses = $this->model->getEnrolledCourses();
+        $allCourses = $this->model->getAllCourses();
+        
+        // Hiển thị view
+        require_once APP_ROOT . '/app/views/templates/header.php';
+        require_once APP_ROOT . '/app/views/course/dashboard.php';
+        require_once APP_ROOT . '/app/views/templates/footer.php';
+    }
+    
+    public function continueLearning() {
+        if (isset($_GET['course_id'])) {
+            $courseId = (int)$_GET['course_id'];
+            $course = $this->model->continueCourse($courseId);
+            
+            if ($course) {
+                // Chuyển hướng về dashboard với thông báo
+                $_SESSION['message'] = "Bạn đã tiếp tục học khóa: " . $course['title'];
+                $_SESSION['message_type'] = "success";
+                header("Location: /course-management/dashboard");
+                exit();
+            }
+        }
+        
+        header("Location: /course-management/dashboard");
+        exit();
     }
 }
 ?>
