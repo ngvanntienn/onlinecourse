@@ -43,6 +43,88 @@
         object-fit: contain;
         vertical-align: bottom; 
 }
+.student-navbar {
+    background-color: #fff;
+    height: 90px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 0 20px;
+    z-index: 1000;
+}
+
+.brand-logo {
+    font-weight: 900;
+    color: #692e8e;
+    font-size: 2rem; 
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+
+/* nút menu */
+.nav-box-link {
+    display: inline-block;
+    background-color: #fff;
+    color: #555;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    font-size: 1.3rem;
+    white-space: nowrap;
+    min-width: 110px;
+    text-align: center;
+}
+
+.nav-box-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    color: #692e8e;
+    border-color: #d3cce3;
+}
+
+.nav-box-link.active {
+    background-color: #f3effb;
+    border-color: #692e8e;
+    color: #692e8e;
+    box-shadow: 0 4px 8px rgba(105, 46, 142, 0.2);
+}
+
+/* avatar */
+.user-avatar-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-profile-wrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-name-text {
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+/* dropdown style */
+.dropdown-menu {
+    border-radius: 9px;
+    overflow: hidden;
+    font-size: 1.3rem;
+}
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 1rem);
+}
 /* thanh menu */
  .floating-container {
         margin-top: -50px; 
@@ -77,7 +159,7 @@
 
 .card-text {
         font-weight: 700;
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         line-height: 1.4;
 }
 
@@ -304,3 +386,196 @@
     text-decoration: none;
     color: #00000095;
 }
+
+
+/* theo dõi tiến độ khóa học */
+.stats-box {
+    background-color: #edeaf4;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+    border: 1px solid #e0d8ef;
+}
+.target-icon-wrapper {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+.target-icon {
+    font-size: 4rem;
+    color: #ff3b30; 
+}
+.percent-big {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #333;
+    line-height: 1;
+    display: block;
+    margin-top: 10px;
+}
+.stats-text {
+    color: #555;
+    font-size: 2rem;
+    line-height: 1.6;
+}
+
+.section-heading {
+    font-weight: 800;
+    font-size: 2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #2c265f;
+    text-align: left; 
+    width: 100%; 
+    display: block;
+}
+
+.stats-box {
+    padding: 40px;
+}
+.percent-big {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #2c265f;
+}
+.stats-text {
+    font-size: 1.8rem;
+    color: #444;
+}
+.stats-text strong {
+    color: #2c265f;
+}
+
+.text-pink-highlight {
+    color: #ff3377;
+    font-weight: 800;
+}
+
+/* Card khóa học */
+.course-card-item {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.course-thumb {
+    width: 180px;
+    height: 120px;
+    background-color: #dcdcdc;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 25px;
+}
+
+.course-info-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 250px;
+}
+
+.course-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2c265f;
+    margin-bottom: 10px;
+}
+
+.instructor-name {
+    font-size: 1rem;
+    color: #6c6c6c;
+    margin-bottom: 15px;
+}
+
+.progress-text {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Nút Tiếp tục học (Tím dài) */
+.btn-continue-learning {
+    background-color: #bfaee3;
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 4px;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+}
+.btn-continue-learning:hover {
+    background-color: #a485d6;
+    color: #fff;
+}
+.btn-continue-learning i {
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+
+/* Nút hành động bên phải */
+.course-action-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 100px;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.btn-outline-custom {
+    background-color: #eee;
+    color: #555;
+    border: none;
+    padding: 6px 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    width: 110px;
+    justify-content: flex-start;
+}
+.btn-outline-custom i {
+    margin-right: 8px;
+    color: #555;
+}
+.btn-outline-custom:hover {
+    background-color: #e0e0e0;
+}
+
+.alert {
+    font-size: 1.2rem;
+    padding: 20px;
+}
+.alert a {
+    font-weight: 700;
+    color: #7b4dd6 !important; 
+}
+.section-heading {
+text-align: left !important;
+margin-left: 0 !important;
+padding-left: 0 !important;
+font-size: 2rem;
+}
+

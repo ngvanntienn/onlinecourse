@@ -334,3 +334,58 @@ body {
 .btn-send-code:hover {
     background-color: rgb(167, 40, 59);
 }
+
+/* thông báo bảo trì */
+.maintenance-alert {
+    position: fixed;
+    bottom: 20px; /* Xuống sát dưới */
+    left: 20px;   /* sát bên trái */
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    padding: 20px 30px; /* to hơn */
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 19px;    /* chữ lớn hơn */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(20px); /* animation từ dưới lên */
+    z-index: 9999;
+}
+
+.maintenance-alert.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* thông báo khi đăng ký, đăng nhập */
+
+.alert {
+    padding: 12px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
