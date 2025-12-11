@@ -43,7 +43,7 @@ if (!isset($current_action)) {
                     Trang chủ
                 </a>
 
-                <a href="/onlinecourse/index.php?controller=teacher&action=course_manage"
+                <a href="/onlinecourse/index.php?controller=course&action=index"
                     class="nav-box-link <?= ($current_action == 'course_manage' || $current_action == 'index') ? 'active' : '' ?>">
                         Khóa học
                 </a>

@@ -14,6 +14,7 @@ $avatarDisplay = !empty($_SESSION['avatar'])
     : (!empty($user['avatar'])
         ? '/onlinecourse/assets/avatars/' . $user['avatar'] . '?t=' . time()
         : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg');
+$current_page = 'dashboard';
 require_once 'views/layouts/header_teacher.php';
 ?>
 
