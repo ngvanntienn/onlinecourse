@@ -48,7 +48,7 @@ class AuthController {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role']     = $user['role'];
                 $_SESSION['fullname'] = $user['fullname'];
-                $_SESSION['avatar']   = $user['avatar'] ?? null;
+                $_SESSION['avatar']   = isset($user['avatar']) ? $user['avatar'] : null;
 
                 if ($user['role'] == 2) {
                     header("Location: index.php?controller=admin&action=dashboard");
@@ -58,7 +58,9 @@ class AuthController {
                     header("Location: index.php?controller=student&action=dashboard");
                 }
                 exit;
-            } else {
+            }
+            else {
+
                 $_SESSION['error'] = "Tên đăng nhập hoặc mật khẩu không đúng!";
                 header("Location: index.php?controller=auth&action=login");
                 exit;
@@ -84,6 +86,7 @@ class AuthController {
                 $params['httponly']
             );
         }
+
         session_destroy();
         header("Location: index.php?controller=auth&action=login");
         exit;
@@ -128,14 +131,13 @@ class AuthController {
 
                 $mail->isHTML(true);
                 $mail->Subject = 'Mã OTP lấy lại mật khẩu EasyStudy';
-                $mail->Body    = "
-                    <p>Chào <b>{$user['fullname']}</b>,</p>
-                    <p>Mã OTP của bạn: <b>{$otp}</b></p>
-                    <p>Không chia sẻ mã này với bất kỳ ai.</p>
-                ";
+                $mail->Body    = "<p>Chào <b>{$user['fullname']}</b>,</p>
+                                  <p>Mã OTP của bạn: <b>{$otp}</b></p>
+                                  <p>Không chia sẻ mã này với bất kỳ ai.</p>";
 
                 $mail->send();
                 $_SESSION['success'] = "OTP đã được gửi tới email của bạn!";
+
             } catch (Exception $e) {
                 $_SESSION['error'] = "Không thể gửi email. Lỗi: {$mail->ErrorInfo}";
             }
@@ -149,20 +151,20 @@ class AuthController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $email_input = $_POST['email'];
             $otp_input   = $_POST['otp_code'];
-
-            if (
-                isset($_SESSION['otp_code']) &&
+            if (isset($_SESSION['otp_code']) &&
                 $_SESSION['otp_code'] == $otp_input &&
-                $_SESSION['otp_email'] == $email_input
-            ) {
+                $_SESSION['otp_email'] == $email_input) {
+
                 $_SESSION['otp_verified'] = true;
                 $_SESSION['reset_email']  = $email_input;
 
-                unset($_SESSION['otp_email'], $_SESSION['otp_code']);
+                unset($_SESSION['otp_email']);
+                unset($_SESSION['otp_code']);
 
                 header("Location: index.php?controller=auth&action=changepass");
                 exit;
-            } else {
+            }
+            else {
                 $_SESSION['error'] = "Mã xác thực không chính xác!";
                 header("Location: index.php?controller=auth&action=forgotPassword");
                 exit;
@@ -205,11 +207,12 @@ class AuthController {
 
             $hashed_pass = password_hash($new_pass, PASSWORD_DEFAULT);
             $userModel = new User();
-            $updated = $userModel->updatePasswordByEmail($email, $hashed_pass);
+            $updated   = $userModel->updatePasswordByEmail($email, $hashed_pass);
 
             if ($updated) {
-                unset($_SESSION['otp_verified'], $_SESSION['reset_email']);
-                $_SESSION['success'] = "Đổi mật khẩu thành công!";
+                unset($_SESSION['otp_verified']);
+                unset($_SESSION['reset_email']);
+             $_SESSION['success'] = "Đổi mật khẩu thành công!";
                 header("Location: index.php?controller=auth&action=login");
                 exit;
             }
@@ -281,7 +284,6 @@ class AuthController {
             $this->redirectToDashboard();
         }
     }
-
     public function updateProfile() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId   = $_SESSION['user_id'];
