@@ -4,37 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - EasyStudy</title>
-    <link rel="stylesheet" href="/onlinecourse/assets/css/auth.css">
+    <link rel="stylesheet" href="/onlinecourse/assets/css/auth.css?v=<?= time() ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <style>
-        .alert {
-            padding: 12px;
-            margin-bottom: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            text-align: center;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-
-
-        .alert-success {
-            background-color: #d1e7dd;
-            color: #0f5132;
-            border: 1px solid #badbcc;
-        }
-
-
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #842029;
-            border: 1px solid #f5c2c7;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -85,7 +56,7 @@
                 </div>
 
                 <button type="submit" class="btn-login">Đăng nhập</button>
-                <!-- thông báo -->
+
                 <?php if (isset($_SESSION['success'])): ?>
                     <div class="alert alert-success">
                         <i class="fa-solid fa-check-circle"></i>
@@ -122,3 +93,30 @@
   
 </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const maintenanceButtons = document.querySelectorAll('.btn-social, .btn-maintenance');
+
+    maintenanceButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            showMaintenanceAlert();
+        });
+    });
+    function showMaintenanceAlert() {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-warning maintenance-alert';
+        alertDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Tính năng đang bảo trì! Vui lòng thử lại sau.';
+
+        document.body.appendChild(alertDiv);
+
+        setTimeout(() => alertDiv.style.opacity = '1', 10);
+
+        setTimeout(() => {
+            alertDiv.style.opacity = '0';
+            setTimeout(() => alertDiv.remove(), 500);
+        }, 3000);
+    }
+});
+
+</script>

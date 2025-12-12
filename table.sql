@@ -77,3 +77,10 @@ ALTER TABLE users
 ADD COLUMN google_id VARCHAR(255) NULL,
 ADD COLUMN facebook_id VARCHAR(255) NULL,
 MODIFY COLUMN password VARCHAR(255) NULL;
+
+/* chèn dữ liệu cho bảng khóa học*/
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `fullname`, `role`, `created_at`) VALUES
+(1, 'ngvanntienn', 'ngvanntienn05@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Nguyễn Văn Tiến', 1, NOW()),
+(2, 'pt0403', 'pt0403@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Hoàng Phương Thảo', 1, NOW()),
+(3, 'ttmt97k5', 'ttmt97k5@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Trần Thị Minh Thư', 1, NOW()),
+(4, 'van2503', 'van2503@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Trịnh Thị Vân', 1, NOW());

@@ -142,7 +142,7 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
       
       <div class="d-flex gap-2 auth-buttons align-items-center">
          <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="/onlinecourse/index.php?controller=student&action=dashboard" class="btn-custom-register">
+            <a href="/onlinecourse/index.php?controller=home&action=dashboard" class="btn-custom-register">
                 <i class="fas fa-columns me-2"></i>Dashboard
             </a>
             <a href="/onlinecourse/index.php?controller=auth&action=logout" class="btn btn-outline-danger" style="border-radius: 14px; padding: 8px 12px;" title="Đăng xuất">

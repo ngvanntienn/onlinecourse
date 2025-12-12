@@ -1,18 +1,22 @@
 <?php
-/* bắt đầu phiên */
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 $defaultAvatar = "https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg";
 $userAvatar = (isset($_SESSION['avatar']) && !empty($_SESSION['avatar'])) 
-            ? '/onlinecourse/assets/uploads/avatars/' . $_SESSION['avatar'] 
+            ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar'] 
             : $defaultAvatar;
 $avatarDisplay = $userAvatar . '?v=' . time();
 
+
 /* hiển thị tên mặc định là giảng viên */
 $displayName = isset($_SESSION['fullname']) ? $_SESSION['fullname'] : 'Giảng viên';
-$current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
+if (!isset($current_action)) {
+    $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -20,133 +24,44 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/style.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/students.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/courses.css">
-    <link rel="stylesheet" href="/onlinecourse/assets/css/teacher.css">
-    <style>
-        .student-navbar {
-            background-color: #fff;
-            height: 90px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            padding: 0 20px;
-            z-index: 1000;
-        }
+    <link rel="stylesheet" href="/onlinecourse//assets/css/style.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/onlinecourse//assets/css/teacher.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/onlinecourse//assets/css/courses.css?v=<?= time() ?>">
 
-        .brand-logo {
-            font-weight: 900;
-            color: #692e8e;
-            font-size: 2rem; 
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            margin-right: 40px;
-        }
-
-        /* nút menu */
-        .nav-box-link {
-            display: inline-block;
-            background-color: #fff;
-            color: #555;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 10px 25px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            font-size: 1.3rem;
-            white-space: nowrap;
-            min-width: 110px;
-            text-align: center;
-        }
-
-        .nav-box-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            color: #692e8e;
-            border-color: #d3cce3;
-        }
-
-        .nav-box-link.active {
-            background-color: #f3effb;
-            border-color: #692e8e;
-            color: #692e8e;
-            box-shadow: 0 4px 8px rgba(105, 46, 142, 0.2);
-        }
-
-        /* avatar */
-        .user-avatar-circle {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-profile-wrapper {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .user-name-text {
-            font-weight: 600;
-            font-size: 1.4rem;
-            color: #333;
-        }
-
-        /* dropdown style */
-        .dropdown-menu {
-            border-radius: 9px;
-            overflow: hidden;
-            font-size: 1.3rem;
-        }
-        .modal-dialog {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 1rem);
-        }
-    </style>
 </head>
 <body>
-
     <!-- navbar -->
-    <nav class="navbar fixed-top student-navbar">
+<nav class="navbar fixed-top student-navbar">
     <div class="container h-100">
-
         <a class="brand-logo me-auto" href="/onlinecourse/index.php">
             <i class="fas fa-graduation-cap me-2"></i>EasyStudy
         </a>
-
         <div class="d-flex align-items-center">
-
             <div class="d-none d-md-flex gap-2">
-                <a href="/onlinecourse/index.php" 
+                <a href="/onlinecourse/index.php?controller=teacher&action=dashboard" 
                 class="nav-box-link <?= ($current_action == 'dashboard') ? 'active' : '' ?>">
                     Trang chủ
                 </a>
 
-                <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
-                class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
+                <a href="/onlinecourse/index.php?controller=course&action=index"
+                    class="nav-box-link <?= ($current_action == 'course_manage' || $current_action == 'index') ? 'active' : '' ?>">
                     Khóa học
                 </a>
-                <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
-                class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
-                    Bài Giảng
+                <a href="/onlinecourse/views/instructor/lessons/index.php"
+                    class="nav-box-link <?= ($current_action == 'lesson_manage' || $current_action == 'index') ? 'active' : '' ?>">
+                    Bài giảng
                 </a>
-                <a href="/onlinecourse/index.php?controller=student&action=my_courses" 
-                class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
-                    Học viên
+                <a href="/onlinecourse/index.php?controller=teacher&action=dashboard" 
+                    class="nav-box-link btn-maintenance <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
+                        Học viên
                 </a>
-            </div>
 
+            </div>
             <!-- avatar dropdown -->
             <div class="dropdown ms-3">
-                <div class="user-profile-wrapper dropdown-toggle" data-bs-toggle="dropdown">
+                <div class="user-profile-wrapper dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="<?= $avatarDisplay ?>" class="user-avatar-circle">
                     <span class="user-name-text d-none d-sm-block ms-2"><?= $displayName ?></span>
                 </div>
@@ -159,11 +74,22 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                         </div>
                     </li>
 
-                    <li><a class="dropdown-item py-2" href="/onlinecourse/index.php?controller=student&action=dashboard"><i class="fas fa-columns me-2 text-primary"></i>Thông tin tài khoản</a></li>
+                    <li>
+                        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#accountInfoModal">
+                            <i class="fas fa-columns fa-fw me-2 text-primary"></i>Thông tin tài khoản
+                        </a>
+                    </li>
 
-                    <li><a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#uploadAvatarModal">
-                        <i class="fas fa-camera me-2 text-info"></i>Đổi ảnh đại diện
-                    </a></li>
+                    <li>
+                        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                            <i class="fas fa-key fa-fw me-2 text-primary"></i>Đổi mật khẩu
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#uploadAvatarModal">
+                        <i class="fas fa-camera me-2 text-info"></i>Đổi ảnh đại diện</a>
+                    </li>
 
                     <li><hr class="dropdown-divider my-1"></li>
 
@@ -174,6 +100,37 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
             </div>
         </div>
     </div>
-    </nav>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src = "/onlinecourse/assets/js/students.js"></script>
+</nav>
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header bg-purple text-white">
+                <h5 class="modal-title" id="changePasswordModalLabel">Đổi mật khẩu</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="/onlinecourse/index.php?controller=auth&action=updatePassword">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu cũ</label>
+                        <input type="password" class="form-control" name="old_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu mới</label>
+                        <input type="password" class="form-control" name="new_password" required>
+                        <small class="text-muted">Tối thiểu 8 ký tự, có chữ hoa, số, ký tự đặc biệt.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Xác nhận mật khẩu mới</label>
+                        <input type="password" class="form-control" name="confirm_password" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="/onlinecourse/assets/js/students.js"></script>
