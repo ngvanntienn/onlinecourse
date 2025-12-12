@@ -136,9 +136,8 @@ require_once 'views/layouts/header.php';
     </div>
 </section>
 
-<!-- Features -->
-
-<section class="features-list-section">
+<section class="features-list-section" id="features-section">
+>>>>>>> 02495af (Sua lai)
     <div class="container">
         <div class="text-center mb-5"><h2 class="fw-bold text-dark"style = "font-size:3.5rem">Các tính năng của <span class="brand-text-style">EasyStudy</span></h2></div>
         

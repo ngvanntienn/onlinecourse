@@ -132,7 +132,8 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'index';
                 <a class="nav-box-link <?= ($current_controller == 'course') ? 'active' : '' ?>" href="/onlinecourse/index.php?controller=course&action=index">Khóa học</a>
             </li>
             <li class="nav-item">
-                <a class="nav-box-link" href="#">Tính năng</a>
+               <a class="nav-box-link" href="#features-section">Tính năng</a>
+
             </li>
             <li class="nav-item">
                 <a class="nav-box-link" href="#about-us">Về chúng tôi</a>

@@ -235,5 +235,43 @@
     </div>
 </div>
 
+<script>
+    const btnSend = document.getElementById('btnSend');
+    const form = document.getElementById('forgotForm');
+
+    function sendOtp() {
+        const email = document.getElementById('email').value;
+        if (!email) { alert("Vui lòng nhập Email!"); return; }
+        form.action = "/onlinecourse/index.php?controller=auth&action=send_otp";
+        form.submit();
+    }
+
+    function closeModal(){ 
+        document.getElementById('otpModal').style.display='none'; 
+    }
+
+    // Hiển thị modal OTP nếu cần
+    <?php if(isset($_SESSION['show_otp_modal'])): ?>
+    document.getElementById('otpModal').style.display='flex';
+    <?php unset($_SESSION['show_otp_modal']); endif; ?>
+
+    // Khóa gửi mã 10s 1 lần
+    <?php if(isset($_SESSION['start_timer'])): ?>
+    let timeLeft = 10;
+    btnSend.disabled = true;
+    btnSend.innerText = `Gửi lại sau (${timeLeft}s)`;
+    const timer = setInterval(()=>{
+        timeLeft--;
+        btnSend.innerText = `Gửi lại sau (${timeLeft}s)`;
+        if(timeLeft<=0){
+            clearInterval(timer);
+            btnSend.disabled=false;
+            btnSend.innerText="Gửi mã xác nhận";
+        }
+    },1000);
+    <?php unset($_SESSION['start_timer']); endif; ?>
+</script>
+
+>>>>>>> 02495af (Sua lai)
 </body>
 </html>

@@ -9,7 +9,9 @@
     .page-header-block h2 {
         font-size: 2.5rem;
         font-weight: 800;
-        color: #2c3e50;
+
+        color: #000000ff;
+
         margin-bottom: 12px;
     }
 
@@ -27,7 +29,9 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.66);
+
     }
 
     .course-card-wrapper:hover {
@@ -75,9 +79,11 @@
     }
 
     .course-name {
-        font-size: 1.2rem;
+
+        font-size: 1.3rem;
         font-weight: 700;
-        color: #2c3e50;
+        color: #080808ff;
+
         margin-bottom: 12px;
         line-height: 1.4;
         display: -webkit-box;
@@ -92,7 +98,9 @@
         align-items: center;
         gap: 8px;
         font-size: 0.95rem;
-        color: #7f8c8d;
+
+        color: #202020ff;
+>
         margin-bottom: 20px;
     }
 
@@ -148,7 +156,11 @@
     }
 
     .btn-start {
+<<<<<<< HEAD
         background: linear-gradient(90deg, #d63384, #e91e63);
+=======
+        background: linear-gradient(90deg, #c466eaff, #882cd4ff);
+>>>>>>> 02495af (Sua lai)
         color: #fff;
         box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
     }
@@ -262,4 +274,12 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <?php require_once 'views/layouts/footer.php'; ?>
+=======
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<?php require_once 'views/users/manage.php'; ?>
+<?php require_once 'views/layouts/footer.php'; ?>
+<?php require_once 'views/instructor/materials/upload_student.php'; ?>
+
+>>>>>>> 02495af (Sua lai)

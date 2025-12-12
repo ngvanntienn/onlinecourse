@@ -250,6 +250,8 @@ require_once 'views/layouts/header_students.php';
         <?php endif; ?>
     </div>
 
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<?php require_once 'views/users/manage.php'; ?>
 <?php require_once 'views/layouts/footer.php'; ?>
+<?php require_once 'views/instructor/materials/upload_student.php'; ?>
+

@@ -42,5 +42,134 @@ class LessonController {
         require_once 'views/instructor/lessons/create.php';
         require_once 'views/layouts/footer.php';
     }
+
+
+    // Quản lý bài học
+    public function manage($courseId = null) {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: /onlinecourse/index.php?controller=auth&action=login");
+            exit;
+        }
+
+        if (!$courseId) {
+            $courseId = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
+        }
+
+        $lessonModel = new Lesson();
+        $courseModel = new Course();
+
+        $course = $courseModel->getById($courseId);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $action = $_POST['action_type'] ?? 'add';
+            $title = trim($_POST['title'] ?? '');
+            $videoUrl = trim($_POST['video_url'] ?? '');
+            $content = trim($_POST['content'] ?? '');
+            $order = intval($_POST['order'] ?? 0);
+
+            if ($action === 'add') {
+                $lessonModel->create($courseId, $title, $content, $videoUrl, $order);
+                $_SESSION['flash_message'] = "Thêm bài học thành công!";
+            } elseif ($action === 'edit') {
+                $lessonId = intval($_POST['lesson_id'] ?? 0);
+                $lessonModel->update($lessonId, $title, $content, $videoUrl, $order);
+                $_SESSION['flash_message'] = "Cập nhật bài học thành công!";
+            } elseif ($action === 'delete') {
+                $lessonId = intval($_POST['lesson_id']);
+                if ($lessonId > 0) {
+                    $lessonModel->delete($lessonId);
+                    $_SESSION['flash_message'] = "Xóa bài học thành công!";
+                }
+            }
+
+            header("Location: /onlinecourse/index.php?controller=lesson&action=manage&course_id={$courseId}");
+            exit;
+        }
+
+        $lessons = $lessonModel->getByCourseId($courseId);
+
+        $materialModel = new Material();
+        foreach ($lessons as &$lesson) {
+            $lesson['material'] = $materialModel->getByLessonId($lesson['id']);
+        }
+        unset($lesson);
+
+        require_once 'views/layouts/header_teacher.php';
+        require_once 'views/instructor/lessons/manage.php';
+    }
+
+    // Chi tiết khóa học
+    public function course_detail() {
+        $courseId = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
+
+        if ($courseId == 0) {
+            header("Location: /onlinecourse/index.php?controller=course&action=index");
+            exit;
+        }
+
+        $this->manage($courseId);
+    }
+    public function view() {
+        // 1. Kiểm tra đăng nhập
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?controller=auth&action=login");
+            exit;
+        }
+
+        // 2. Kiểm tra tham số
+        if (!isset($_GET['course_id'])) {
+            header("Location: index.php?controller=student&action=dashboard");
+            exit;
+        }
+
+        $courseId = $_GET['course_id'];
+
+        // 3. Lấy thông tin khóa học
+        $courseModel = new Course();
+        $course = $courseModel->getById($courseId);
+
+        // 4. Lấy danh sách bài học
+        $lessonModel = new Lesson();
+        $lessons = $lessonModel->getLessonsByCourse($courseId);
+
+        $currentLessonId = isset($_GET['lesson_id']) ? $_GET['lesson_id'] : ($lessons[0]['id'] ?? null);
+        $currentLesson = null;
+
+        if ($currentLessonId && !empty($lessons)) {
+            foreach ($lessons as $lesson) {
+                if ($lesson['id'] == $currentLessonId) {
+                    $currentLesson = $lesson;
+                    break;
+                }
+            }
+        }
+
+        /* hiển thị video */
+        if ($currentLesson && !empty($currentLesson['video_url'])) {
+            $url = $currentLesson['video_url'];
+            
+            if (strpos($url, 'watch?v=') !== false) {
+                $url = str_replace('watch?v=', 'embed/', $url);
+                if (strpos($url, '&') !== false) {
+                    $url = explode('&', $url)[0];
+                }
+            } 
+            elseif (strpos($url, 'youtu.be/') !== false) {
+                $url = str_replace('youtu.be/', 'youtube.com/embed/', $url);
+            }
+
+            $currentLesson['video_url'] = $url;
+        }
+
+        /* lấy đường dẫn tài liệu */
+        $materialModel = new Material();
+        $idToGetMaterial = ($currentLesson) ? $currentLesson['id'] : 0;
+        $lessonMaterials = $materialModel->getByLessonId($idToGetMaterial);
+        require_once 'views/instructor/lessons/view.php';
+    }
+
 }
 ?>

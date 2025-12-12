@@ -37,6 +37,32 @@ class StudentController {
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
         $discoveryCourses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $filters = [
+            'keyword'  => isset($_GET['keyword']) ? trim($_GET['keyword']) : '', 
+            'category' => isset($_GET['category']) ? $_GET['category'] : [],
+            'level'    => isset($_GET['level'])    ? $_GET['level']    : [],
+            'price'    => isset($_GET['price'])    ? $_GET['price']    : []
+        ];
+        $isFiltering = !empty($filters['keyword']) || !empty($filters['category']) || !empty($filters['level']) || !empty($filters['price']);
+        
+        $discoveryCourses = [];
+        $isShowAll = isset($_GET['view']) && $_GET['view'] == 'all';
+
+        if ($isFiltering) {
+            $discoveryCourses = Course::getCoursesByFilter($filters);
+            $isShowAll = true; 
+        } else {
+            $db = new Database();
+            $conn = $db->pdo;
+
+            $limit = $isShowAll ? 100 : 4; 
+
+            $sql = "SELECT * FROM courses ORDER BY created_at DESC LIMIT :limit";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            $discoveryCourses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
 
         require_once 'views/layouts/header_students.php';
         require_once 'views/instructor/students/dashboard.php';
@@ -77,5 +103,111 @@ class StudentController {
         header("Location: /onlinecourse/index.php?controller=student&action=dashboard");
         exit;
     }
+
+    /**
+     * Hiển thị chi tiết một khóa học
+     */
+    public function courseDetail() {
+        if (!isset($_GET['id'])) {
+            die("Thiếu ID khóa học.");
+        }
+
+        $id = $_GET['id'];
+
+        // Lấy danh sách khóa học mặc định
+        $courseModel = new Course();
+        $courseList = $courseModel->getDefaultCourses(); 
+
+        // Tìm khóa học theo ID
+        $course = null;
+        foreach ($courseList as $slug => $item) {
+            if ($item['id'] == $id) {
+                $course = $item;
+                break;
+            }
+        }
+
+        if (!$course) {
+            die("Khóa học không tồn tại!");
+        }
+
+        // Lấy thông tin khóa học từ DB
+        $dbCourse = $courseModel->getCourseById($id); 
+        $realPrice = $dbCourse ? $dbCourse['price'] : 0;
+
+        // Xử lý hiển thị giá
+        $course['price_display'] = $realPrice == 0 
+            ? "Miễn phí" 
+            : number_format($realPrice, 0, ',', '.') . 'đ';
+
+        // Gán lại giá gốc nếu cần
+        $course['price'] = $course['price_display'];
+
+        // Kiểm tra học viên đã đăng ký hay chưa
+        $course['is_enrolled'] = false; // Logic đăng ký sẽ thêm sau
+
+        // Tạo danh sách khóa học liên quan
+        $relatedCourses = [];
+        foreach ($courseList as $slug => $rc) {
+            if ($rc['id'] != $course['id']) {
+                $relatedCourses[] = $rc;
+            }
+        }
+
+        $courses_data = $relatedCourses; 
+        $course_id = $course['id'];
+
+        require_once "views/courses/detail.php";
+    }
+    public function progress() {
+        // 1. Kiểm tra đăng nhập
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?controller=auth&action=login");
+            exit;
+        }
+
+        $userId = $_SESSION['user_id'];
+        $displayName = $_SESSION['fullname'] ?? 'Bạn';
+
+        // 2. Gọi Model để lấy dữ liệu tiến độ
+        $courseModel = new Course();
+        $progressData = $courseModel->getEnrolledCoursesWithProgress($userId);
+
+        // 3. Trích xuất dữ liệu để dùng bên View
+        $totalRegistered = $progressData['total_registered'];
+        $completedCount  = $progressData['completed_count'];
+        $overallProgress = $progressData['overall_progress_percent'];
+        $enrolledCourses = $progressData['courses'];
+
+        // 4. Gọi View
+        require_once 'views/instructor/students/course_progress.php';
+    }
+    
+    public function my_courses() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?controller=auth&action=login");
+            exit;
+        }
+
+        $userId = $_SESSION['user_id'];
+        
+        $courseModel = new Course();
+        // Lấy danh sách khóa học đã đăng ký
+        $progressData = $courseModel->getEnrolledCoursesWithProgress($userId);
+        
+        // Dữ liệu cần thiết cho view my_courses.php
+        $enrolledCourses = $progressData['courses'];
+
+        require_once 'views/instructor/students/my_courses.php';
+    }
+    
+
 }
 ?>
