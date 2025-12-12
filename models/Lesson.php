@@ -61,5 +61,11 @@ class Lesson {
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute(['id' => $lessonId]);
     }
+    public function getLessonsByCourse($courseId) {
+        $sql = "SELECT * FROM lessons WHERE course_id = :course_id ORDER BY id ASC"; 
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':course_id' => $courseId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

@@ -11,6 +11,10 @@ $userAvatar = (isset($_SESSION['avatar']) && !empty($_SESSION['avatar']))
 $avatarDisplay = $userAvatar . '?v=' . time();
 $displayName = isset($_SESSION['fullname']) ? $_SESSION['fullname'] : 'Học viên';
 $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
+$role = $_SESSION['role'] ?? 0; 
+$dashboardLink = ($role == 2) 
+    ? '/onlinecourse/index.php?controller=admin&action=dashboard' 
+    : '/onlinecourse/index.php?controller=student&action=dashboard';
 ?>
 
 <!DOCTYPE html>
@@ -36,10 +40,11 @@ $current_action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
         <div class="d-flex align-items-center">
 
             <div class="d-none d-md-flex gap-2">
-                <a href="/onlinecourse/index.php" 
-                class="nav-box-link <?= ($current_action == 'dashboard') ? 'active' : '' ?>">
+                <a href="<?= $dashboardLink ?>" 
+                    class="nav-box-link <?= ($current_action == 'dashboard') ? 'active' : '' ?>">
                     Trang chủ
                 </a>
+
 
                 <a href="#discovery-section"
                 class="nav-box-link <?= ($current_action == 'my_courses') ? 'active' : '' ?>">

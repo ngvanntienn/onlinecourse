@@ -2,7 +2,7 @@
 require_once './config/Database.php';
 require_once './models/User.php';
 require_once './models/Course.php';
-
+require_once './models/Enrollment.php';
 class TeacherController {
 
     private $userModel;
@@ -101,6 +101,37 @@ class TeacherController {
         // Load view quản lý khóa học
         require_once 'views/instructor/course/manage.php';
     }
+   public function students() {
+        // Kiểm tra quyền
+        if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
+            header("Location: /onlinecourse/index.php");
+            exit;
+        }
 
+        // Luôn khởi tạo mảng rỗng
+        $students = [];
+
+        // Load model
+        $enrollmentModel = new Enrollment();
+        $students = $enrollmentModel->getAllEnrollments();
+
+        // Load view
+        require_once 'views/instructor/students/index.php';
+    }
+
+    public function remove_student() {
+        if (isset($_GET['id'])) {
+            $enrollmentId = intval($_GET['id']);
+            
+            $enrollmentModel = new Enrollment();
+            if ($enrollmentModel->removeStudent($enrollmentId)) {
+                $_SESSION['success'] = "Đã hủy đăng ký thành công!";
+            } else {
+                $_SESSION['error'] = "Lỗi hệ thống!";
+            }
+        }
+        header("Location: /onlinecourse/index.php?controller=teacher&action=students");
+        exit;
+    }
 }
 ?>

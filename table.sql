@@ -1,8 +1,7 @@
 CREATE DATABASE IF NOT EXISTS onlinecourse;
 USE onlinecourse;
 
-/* Thêm status vào users */
-
+/* thêm status */
 ALTER TABLE users ADD COLUMN status TINYINT NOT NULL DEFAULT 1 COMMENT '0: Inactive, 1: Active';
 -- 1. Bảng users
 CREATE TABLE users (

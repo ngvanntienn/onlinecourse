@@ -53,9 +53,9 @@ if (!isset($current_action)) {
                     class="nav-box-link <?= ($current_action == 'lesson_manage' || $current_action == 'index') ? 'active' : '' ?>">
                     Bài giảng
                 </a>
-                <a href="/onlinecourse/index.php?controller=teacher&action=dashboard" 
-                    class="nav-box-link btn-maintenance <?= ($current_action == 'my_courses') ? 'active' : '' ?>">
-                        Học viên
+               <a href="/onlinecourse/views/instructor/list.php" 
+                    class="nav-box-link <?= ($current_action == 'student_manage' || $current_action == 'index') ? 'active' : '' ?>">
+                    Học viên
                 </a>
 
             </div>

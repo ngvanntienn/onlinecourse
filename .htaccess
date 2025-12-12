@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteBase /onlinecourse/
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+</IfModule>
+
+# Hỗ trợ UTF-8 cho PHP
+AddDefaultCharset UTF-8
+php_value default_charset "UTF-8"

@@ -11,12 +11,14 @@ class Material {
 
     // Lấy tài liệu theo lesson_id
     public function getByLessonId($lessonId) {
-        $sql = "SELECT * FROM materials WHERE lesson_id = :lesson_id LIMIT 1"; // Giả sử mỗi bài 1 tài liệu
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute(['lesson_id' => $lessonId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
+    // Bỏ LIMIT 1 để lấy hết tài liệu của bài học đó
+    $sql = "SELECT * FROM materials WHERE lesson_id = :lesson_id"; 
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute(['lesson_id' => $lessonId]);
+    
+    // QUAN TRỌNG: Dùng fetchAll để trả về mảng danh sách
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+}
     // Thêm mới tài liệu
       public function create($lessonId, $filename, $filePath, $fileType) {
         $sql = "INSERT INTO materials (lesson_id, filename, file_path, file_type, uploaded_at)

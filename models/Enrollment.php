@@ -3,91 +3,65 @@ require_once './config/Database.php';
 require_once './models/User.php';
 require_once './models/Course.php';
 
-class TeacherController {
-    private $userModel;
+
+class Enrollment {
+    private $conn;
 
     public function __construct() {
-        // Khởi tạo User model
-        $this->userModel = new User();
-
-        // Khởi tạo session nếu chưa có
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // Kiểm tra đăng nhập
-        if (!isset($_SESSION['user_id'])) {
-            header("Location: /onlinecourse/index.php?controller=auth&action=login");
-            exit;
-        }
-    }
-
-    // Trang dashboard của giảng viên
-    public function dashboard() {
-        $displayName = $_SESSION['fullname'] ?? 'Giảng viên';
-        $userAvatar = !empty($_SESSION['avatar'])
-            ? '/onlinecourse/assets/avatars/' . $_SESSION['avatar']
-            : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fveM072efagRg8JuC8e.jpg';
-        $avatarDisplay = $userAvatar . '?v=' . time();
-
         $db = new Database();
-        $conn = $db->pdo;
-
-        $isShowAll = isset($_GET['view']) && $_GET['view'] == 'all';
-        $limit = $isShowAll ? 12 : 2;
-
-        $sql = "SELECT * FROM courses ORDER BY created_at DESC LIMIT :limit";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->execute();
-        $discoveryCourses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        require_once 'views/layouts/header_students.php';
-        require_once 'views/dashboard.php';
-        require_once 'views/layouts/footer.php';
+        $this->conn = $db->pdo;
     }
 
-    // Xử lý upload ảnh đại diện
-    public function upload_avatar() {
-        if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
-            $fileTmpPath = $_FILES['avatar']['tmp_name'];
-            $fileName = $_FILES['avatar']['name'];
-            $fileNameCmps = explode(".", $fileName);
-            $fileExtension = strtolower(end($fileNameCmps));
+    // Kiểm tra xem học viên đã đăng ký khóa học này chưa
+    public function isEnrolled($studentId, $courseId) {
+        $sql = "SELECT COUNT(*) FROM enrollments WHERE student_id = :student_id AND course_id = :course_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ':student_id' => $studentId,
+            ':course_id' => $courseId
+        ]);
+        return $stmt->fetchColumn() > 0;
+    }
 
-            $allowedExtensions = ['jpg', 'jpeg', 'png'];
-            if (!in_array($fileExtension, $allowedExtensions)) {
-                $_SESSION['error'] = "Chỉ cho phép file JPG, PNG.";
-                header("Location: /onlinecourse/index.php?controller=teacher&action=dashboard");
-                exit;
-            }
-
-            $newFileName = "avatar_" . $_SESSION['user_id'] . "_" . time() . "." . $fileExtension;
-            $uploadFileDir = $_SERVER['DOCUMENT_ROOT'] . '/onlinecourse/assets/avatars/';
-            if (!is_dir($uploadFileDir)) mkdir($uploadFileDir, 0755, true);
-
-            $dest_path = $uploadFileDir . $newFileName;
-
-            if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                $this->userModel->updateAvatar($_SESSION['user_id'], $newFileName);
-                $_SESSION['avatar'] = $newFileName;
-                $_SESSION['success'] = "Cập nhật ảnh đại diện thành công!";
-            } else {
-                $_SESSION['error'] = "Có lỗi khi tải ảnh lên, vui lòng thử lại.";
-            }
-        } else {
-            $_SESSION['error'] = "Vui lòng chọn file ảnh.";
+    // Tạo mới đăng ký
+    public function create($studentId, $courseId) {
+        try {
+            $sql = "INSERT INTO enrollments (student_id, course_id, status, enrolled_date, progress) 
+                    VALUES (:student_id, :course_id, 'active', NOW(), 0)";
+            $stmt = $this->conn->prepare($sql);
+            return $stmt->execute([
+                ':student_id' => $studentId,
+                ':course_id' => $courseId
+            ]);
+        } catch (PDOException $e) {
+            return false;
         }
-
-        header("Location: /onlinecourse/index.php?controller=teacher&action=dashboard");
-        exit;
     }
+  public function getAllEnrollments() {
+    $sql = "SELECT 
+                e.id as enrollment_id,
+                e.enrolled_date,
+                u.id as student_id,
+                u.fullname,
+                u.email,
+                u.avatar,
+                c.title as course_name
+            FROM enrollments e
+            JOIN users u ON e.student_id = u.id
+            JOIN courses c ON e.course_id = c.id
+            ORDER BY e.enrolled_date DESC";
 
-    // Quản lý khóa học của giảng viên
-    public function course_manage() {
-        $courseModel = new Course();
-        $courses = $courseModel->getCoursesByTeacher($_SESSION['user_id']); // Lấy danh sách khóa học
-        include 'views/instructor/course/manage.php';
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+    // Các hàm khác giữ nguyên...
+    public function removeStudent($enrollmentId) {
+        $sql = "DELETE FROM enrollments WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute(['id' => $enrollmentId]);
     }
 }
 ?>

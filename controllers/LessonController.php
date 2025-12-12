@@ -111,5 +111,66 @@ class LessonController {
 
         $this->manage($courseId);
     }
+    public function view() {
+        // 1. Kiểm tra đăng nhập
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?controller=auth&action=login");
+            exit;
+        }
+
+        // 2. Kiểm tra tham số
+        if (!isset($_GET['course_id'])) {
+            header("Location: index.php?controller=student&action=dashboard");
+            exit;
+        }
+
+        $courseId = $_GET['course_id'];
+
+        // 3. Lấy thông tin khóa học
+        $courseModel = new Course();
+        $course = $courseModel->getById($courseId);
+
+        // 4. Lấy danh sách bài học
+        $lessonModel = new Lesson();
+        $lessons = $lessonModel->getLessonsByCourse($courseId);
+
+        $currentLessonId = isset($_GET['lesson_id']) ? $_GET['lesson_id'] : ($lessons[0]['id'] ?? null);
+        $currentLesson = null;
+
+        if ($currentLessonId && !empty($lessons)) {
+            foreach ($lessons as $lesson) {
+                if ($lesson['id'] == $currentLessonId) {
+                    $currentLesson = $lesson;
+                    break;
+                }
+            }
+        }
+
+        /* hiển thị video */
+        if ($currentLesson && !empty($currentLesson['video_url'])) {
+            $url = $currentLesson['video_url'];
+            
+            if (strpos($url, 'watch?v=') !== false) {
+                $url = str_replace('watch?v=', 'embed/', $url);
+                if (strpos($url, '&') !== false) {
+                    $url = explode('&', $url)[0];
+                }
+            } 
+            elseif (strpos($url, 'youtu.be/') !== false) {
+                $url = str_replace('youtu.be/', 'youtube.com/embed/', $url);
+            }
+
+            $currentLesson['video_url'] = $url;
+        }
+
+        /* lấy đường dẫn tài liệu */
+        $materialModel = new Material();
+        $idToGetMaterial = ($currentLesson) ? $currentLesson['id'] : 0;
+        $lessonMaterials = $materialModel->getByLessonId($idToGetMaterial);
+        require_once 'views/instructor/lessons/view.php';
+    }
 }
 ?>

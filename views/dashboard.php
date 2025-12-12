@@ -66,7 +66,7 @@ require_once 'views/layouts/header_teacher.php';
         </div>
 
         <div class="col-md-4">
-            <a href="/onlinecourse/index.php?controller=teacher&action=students" class="manage-card card-blue btn-maintenance">
+            <a href="views/instructor/list.php" class="manage-card card-blue">
                 <div class="card-content">
                     <h3 class="card-title">Quản lý Học viên</h3>
                     <i class="fas fa-folder card-icon-bg"></i>

@@ -305,7 +305,7 @@ class Course {
         return $stmt->execute([':id' => $id]);
     }
 
-    // Lấy danh sách khóa học đã đăng ký của học viên, kèm tiến độ
+    // Lấy danh sách khóa học đã đăng ký của học viên
     public function getEnrolledCoursesWithProgress($studentId) {
         $sql = "SELECT 
                     c.id as course_id,
@@ -382,5 +382,51 @@ class Course {
         return null; // Không tìm thấy
     }
 
+   public static function getCoursesByFilter($filters) {
+        $dbInstance = new Database();
+        $conn = $dbInstance->pdo; 
+        
+        $sql = "SELECT * FROM courses WHERE 1=1";
+        $params = [];
+
+        if (!empty($filters['keyword'])) {
+            $sql .= " AND title LIKE ?";
+            $params[] = '%' . $filters['keyword'] . '%';
+        }
+
+        // 2. Lọc theo Danh mục
+        if (!empty($filters['category'])) {
+            $catIds = array_map('intval', $filters['category']);
+            $idsString = implode(',', $catIds);
+            $sql .= " AND category_id IN ($idsString)";
+        }
+
+        // 3. Lọc theo Cấp độ
+        if (!empty($filters['level']) && !in_array('all', $filters['level'])) {
+            $placeholders = implode(',', array_fill(0, count($filters['level']), '?'));
+            $sql .= " AND level IN ($placeholders)";
+            foreach ($filters['level'] as $lvl) {
+                $params[] = $lvl;
+            }
+        }
+
+        // 4. Lọc theo Giá
+        if (!empty($filters['price']) && !in_array('all', $filters['price'])) {
+            $priceConditions = [];
+            if (in_array('free', $filters['price'])) $priceConditions[] = "price = 0";
+            if (in_array('paid', $filters['price'])) $priceConditions[] = "price > 0";
+            
+            if (!empty($priceConditions)) {
+                $sql .= " AND (" . implode(' OR ', $priceConditions) . ")";
+            }
+        }
+
+        $sql .= " ORDER BY created_at DESC";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($params);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
