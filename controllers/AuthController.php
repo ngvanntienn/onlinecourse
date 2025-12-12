@@ -33,14 +33,30 @@ class AuthController {
             $user = $userModel->login($username, $password);
 
             if ($user) {
-                $_SESSION['user_id'] = $user['id'];
+                if (isset($user['status']) && $user['status'] == 0) {
+                    $_SESSION['error'] = "Tài khoản của bạn hiện đang bị vô hiệu hóa! Vui lòng liên hệ admin";
+                    header("Location: index.php?controller=auth&action=login");
+                    exit;
+                }
+
+                $_SESSION['user_id']  = $user['id'];
                 $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
+                $_SESSION['role']     = $user['role'];
                 $_SESSION['fullname'] = $user['fullname'];
+                $_SESSION['avatar']   = isset($user['avatar']) ? $user['avatar'] : null;
 
-
-                // Redirect all roles to a unified home dashboard view
-                header("Location: index.php?controller=home&action=dashboard");
+                if ($user['role'] == 2) {
+                    header("Location: index.php?controller=admin&action=dashboard");
+                } elseif ($user['role'] == 1) {
+                    header("Location: index.php?controller=teacher&action=dashboard");
+                } else {
+                    header("Location: index.php?controller=student&action=dashboard");
+                }
+                exit;
+            }
+            else {
+                $_SESSION['error'] = "Tên đăng nhập hoặc mật khẩu không đúng!";
+                header("Location: index.php?controller=auth&action=login");
                 exit;
             }
         }
